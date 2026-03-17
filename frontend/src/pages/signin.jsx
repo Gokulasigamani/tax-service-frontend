@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { signIn } from "../routes/auth.js"
 import { ROUTES } from "../routes/routeConfig.js"
+import signin from "../../public/signin.jpg"
 
 export default function Signin() {
   const navigate = useNavigate()
@@ -113,7 +114,7 @@ export default function Signin() {
       <div className="hidden lg:block h-screen">
 
         <img
-          src="../public/signin.jpg"
+          src={signin}
           alt="Document extraction dashboard preview"
           className="w-full h-full object-cover"
         />
