@@ -9,7 +9,7 @@ import { AuthLayout } from "../layouts/AuthLayout.jsx"
 
 import Overview from "../pages/Overview.jsx"
 import UploadDocuments from "../pages/UploadDocuments.jsx"
-import Signin from "../pages/sigin.jsx"
+import Signin from "../pages/signin.jsx"
 import Signup from "../pages/Signup.jsx"
 import DocumentSummary from "../pages/DocumentSummary.jsx"
 import ExtractionFields from "../pages/ExtractionFields.jsx"
