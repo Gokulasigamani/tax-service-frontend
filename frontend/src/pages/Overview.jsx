@@ -27,104 +27,117 @@ export default function Overview() {
 
       <div className="grid grid-cols-3 gap-6">
 
-        {/* Documents Processed */}
+  {/* Documents Processed */}
 
-        <div className="bg-white p-5 rounded-xl border border-neutral-200 shadow-sm">
+  <div className="relative overflow-hidden bg-white p-5 rounded-xl border border-neutral-200 shadow-sm">
 
-          <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
-            Documents Processed
-            <span>Last 7 days</span>
-          </div>
+    {/* Gradient */}
+    <div className="absolute inset-0 bg-gradient-to-br from-violet-50/60 to-transparent pointer-events-none" />
 
-          <div className="flex items-end justify-between">
+    <div className="relative">
 
-            <div>
-              <p className="text-2xl font-semibold">1,294</p>
-              <span className="text-green-600 text-sm">+12.4%</span>
-            </div>
+      <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
+        Documents Processed
+        <span>Last 7 days</span>
+      </div>
 
-            {/* Bars */}
+      <div className="flex items-end justify-between">
 
-            <div className="flex items-end gap-[3px] h-10">
-
-              {[6, 10, 14, 8, 16, 12, 18].map((h, i) => (
-                <div
-                  key={i}
-                  style={{ height: `${h}px` }}
-                  className="w-[4px] bg-violet-400 rounded-sm"
-                />
-              ))}
-
-            </div>
-
-          </div>
-
+        <div>
+          <p className="text-2xl font-semibold">1,294</p>
+          <span className="text-green-600 text-sm">+12.4%</span>
         </div>
 
-        {/* Extraction Runs */}
-
-        <div className="bg-white p-5 rounded-xl border border-neutral-200 shadow-sm">
-
-          <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
-            Extraction Runs
-            <span>Last 7 days</span>
-          </div>
-
-          <div className="flex items-end justify-between">
-
-            <div>
-              <p className="text-2xl font-semibold">842</p>
-              <span className="text-red-500 text-sm">-2.1%</span>
-            </div>
-
-            <div className="flex items-end gap-[3px] h-10">
-
-              {[14, 16, 12, 10, 9, 8, 7].map((h, i) => (
-                <div
-                  key={i}
-                  style={{ height: `${h}px` }}
-                  className="w-[4px] bg-violet-400 rounded-sm"
-                />
-              ))}
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* Total Fields */}
-
-        <div className="bg-white p-5 rounded-xl border border-neutral-200 shadow-sm">
-
-          <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
-            Total Fields Extracted
-            <span>All time</span>
-          </div>
-
-          <div className="flex items-end justify-between">
-
-            <div>
-              <p className="text-2xl font-semibold">68,674</p>
-              <span className="text-green-600 text-sm">+4.1%</span>
-            </div>
-
-            {/* Trend line */}
-
-            <svg width="80" height="30">
-              <polyline
-                fill="none"
-                stroke="#7c3aed"
-                strokeWidth="2"
-                points="0,25 10,22 20,21 30,18 40,16 50,14 60,10 70,7 80,5"
-              />
-            </svg>
-
-          </div>
-
+        <div className="flex items-end gap-[3px] h-10">
+          {[6, 10, 14, 8, 16, 12, 18].map((h, i) => (
+            <div
+              key={i}
+              style={{ height: `${h}px` }}
+              className="w-[4px] bg-violet-400 rounded-sm"
+            />
+          ))}
         </div>
 
       </div>
+
+    </div>
+
+  </div>
+
+  {/* Extraction Runs */}
+
+  <div className="relative overflow-hidden bg-white p-5 rounded-xl border border-neutral-200 shadow-sm">
+
+    {/* Gradient */}
+    <div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 to-transparent pointer-events-none" />
+
+    <div className="relative">
+
+      <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
+        Extraction Runs
+        <span>Last 7 days</span>
+      </div>
+
+      <div className="flex items-end justify-between">
+
+        <div>
+          <p className="text-2xl font-semibold">842</p>
+          <span className="text-red-500 text-sm">-2.1%</span>
+        </div>
+
+        <div className="flex items-end gap-[3px] h-10">
+          {[14, 16, 12, 10, 9, 8, 7].map((h, i) => (
+            <div
+              key={i}
+              style={{ height: `${h}px` }}
+              className="w-[4px] bg-blue-400 rounded-sm"
+            />
+          ))}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  {/* Total Fields */}
+
+  <div className="relative overflow-hidden bg-white p-5 rounded-xl border border-neutral-200 shadow-sm">
+
+    {/* Gradient */}
+    <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/60 to-transparent pointer-events-none" />
+
+    <div className="relative">
+
+      <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
+        Total Fields Extracted
+        <span>All time</span>
+      </div>
+
+      <div className="flex items-end justify-between">
+
+        <div>
+          <p className="text-2xl font-semibold">68,674</p>
+          <span className="text-green-600 text-sm">+4.1%</span>
+        </div>
+
+        <svg width="80" height="30">
+          <polyline
+            fill="none"
+            stroke="#10b981"
+            strokeWidth="2"
+            points="0,25 10,22 20,21 30,18 40,16 50,14 60,10 70,7 80,5"
+          />
+        </svg>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
       {/* Middle Section */}
 

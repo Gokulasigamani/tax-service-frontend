@@ -1,11 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { signIn } from "../routes/auth.js"
+import { ROUTES } from "../routes/routeConfig.js"
 
 export default function Signin() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const from = location.state?.from?.pathname || "/dashboard"
+  const from = location.state?.from?.pathname || ROUTES.dashboard
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2 font-sans">

@@ -9,3 +9,12 @@ body {
   font-family: 'DM Sans', 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
 }
+
+@keyframes routeFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.route-fade-enter {
+  animation: routeFade 180ms ease-out forwards;
+}

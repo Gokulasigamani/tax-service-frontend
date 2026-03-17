@@ -8,9 +8,7 @@ export default function Footer() {
 
       <Sparkles size={14} className="text-violet-500" />
 
-      <span>
-        Powered by AI Document Intelligence
-      </span>
+      <span>Powered by AI Document Intelligence</span>
 
       <span className="text-gray-400">
         © 2026 DocExtract
