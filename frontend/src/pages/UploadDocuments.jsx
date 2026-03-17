@@ -89,7 +89,7 @@ export default function UploadDocuments() {
           Upload Documents
         </h1>
 
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm shadow-sm hover:bg-violet-700 transition">
+        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm hover:bg-violet-700 transition">
           <Sparkles size={16} />
           Run Extraction
         </button>
@@ -188,7 +188,7 @@ export default function UploadDocuments() {
           <label
             htmlFor="fileUpload"
             className="mt-4 px-4 py-2 text-sm font-medium rounded-lg
-            bg-violet-600 text-white hover:bg-violet-700 transition cursor-pointer"
+            bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white hover:bg-violet-700 transition cursor-pointer"
           >
             Select Files
           </label>

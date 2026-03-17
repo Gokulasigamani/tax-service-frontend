@@ -13,6 +13,14 @@ import Signin from "../pages/sigin.jsx"
 import Signup from "../pages/Signup.jsx"
 import DocumentSummary from "../pages/DocumentSummary.jsx"
 import ExtractionFields from "../pages/ExtractionFields.jsx"
+import ExtractionRules from "../pages/ExtractionRules.jsx"
+import AITraining from "../pages/AITraining.jsx"
+import Analytics from "../pages/Analytics.jsx"
+import Teams from "../pages/Teams.jsx"
+import Security from "../pages/Security.jsx"
+import Settings from "../pages/Settings.jsx"
+import Profile from "../pages/Profile.jsx"
+import Notifications from "../pages/Notifications.jsx"
 
 function UnderConstruction({ title = "Page" }) {
   return (
@@ -49,15 +57,19 @@ export function AppRoutes() {
         <Route path="app" element={<AppLayout />}>
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<Overview />} />
+          
           <Route path="upload" element={<UploadDocuments />} />
+          <Route path="notifications" element={<Notifications />} />
           <Route path="documents" element={<DocumentSummary />} />
           <Route path="fields" element={<ExtractionFields />} />
-          <Route path="rules" element={<UnderConstruction title="Extraction Rules" />} />
-          <Route path="ai-training" element={<UnderConstruction title="AI Training" />} />
-          <Route path="analytics" element={<UnderConstruction title="Analytics" />} />
-          <Route path="team" element={<UnderConstruction title="Team" />} />
-          <Route path="security" element={<UnderConstruction title="Security" />} />
-          <Route path="settings" element={<UnderConstruction title="Settings" />} />
+          <Route path="rules" element={<ExtractionRules />} />
+          <Route path="ai-training" element={<AITraining />} />
+          <Route path="analytics" element={<Analytics/>} />
+          <Route path="team" element={<Teams />} />
+          <Route path="security" element={<Security />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="profile" element={<Profile />} />
+          
         </Route>
 
       </Route>

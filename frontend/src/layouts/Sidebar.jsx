@@ -1,6 +1,6 @@
-import { NavLink } from "react-router-dom"
-import { sidebarItems } from "../datas/sidebarConfig.js"
-import { PanelLeftClose, PanelLeftOpen } from "lucide-react"
+import { NavLink } from "react-router-dom";
+import { sidebarItems } from "../datas/sidebarConfig.js";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 export default function Sidebar({ collapsed, setCollapsed }) {
   return (
@@ -42,22 +42,23 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       {/* Menu */}
       <nav className="flex-1 px-2 py-4 space-y-1 overflow-visible">
         {sidebarItems.map((item) => {
-          const Icon = item.icon
+          const Icon = item.icon;
           return (
             <NavLink
-              key={item.label}
-              to={item.path}
-              end={item.end ?? false}
+             key={item.label}
+  to={item.path}
+  end
+  relative="path"
               className={({ isActive }) =>
                 `group relative flex items-center
-                py-2.5 rounded-lg text-sm border
-                transition-colors duration-150
-                ${collapsed ? "justify-center px-0" : "gap-3 px-3"}
-                ${
-                  isActive
-                    ? "bg-violet-600/20 text-white border-violet-500/30"
-                    : "border-transparent hover:bg-white/5 hover:text-white"
-                }`
+    py-2.5 rounded-lg text-sm border
+    transition-colors duration-150
+    ${collapsed ? "justify-center px-0" : "gap-3 px-3"}
+    ${
+      isActive
+        ? "bg-violet-600/20 text-white border-violet-500/30"
+        : "border-transparent hover:bg-white/5 hover:text-white"
+    }`
               }
             >
               <div className="flex-shrink-0 flex justify-center">
@@ -86,7 +87,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                 {item.label}
               </div>
             </NavLink>
-          )
+          );
         })}
       </nav>
 
@@ -103,5 +104,5 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         </span>
       </div>
     </aside>
-  )
+  );
 }

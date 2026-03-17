@@ -8,61 +8,65 @@ import {
   BarChart3,
   Settings,
   Users,
-  Shield
+  Shield,
+  Bell,
 } from "lucide-react"
 import { ROUTES } from "../routes/routeConfig.js"
 
 export const sidebarItems = [
   {
     label: "Dashboard",
-    path: ROUTES.dashboard,
-    icon: LayoutDashboard,
-    end: true
+    path: "dashboard",
+    icon: LayoutDashboard
+  },
+  {
+    label: "Notifications",
+    path: "notifications",
+    icon: Bell
   },
   {
     label: "Upload Documents",
-    path: ROUTES.upload,
-    icon: Upload,
-    end: true
+    path: "upload",
+    icon: Upload
   },
   {
     label: "Document Library",
-    path: ROUTES.documents,
+    path: "documents",
     icon: FileText
   },
   {
     label: "Extraction Fields",
-    path: ROUTES.fields,
+    path: "fields",
     icon: Database
   },
   {
     label: "Extraction Rules",
-    path: ROUTES.rules,
+    path: "rules",
     icon: Workflow
   },
   {
     label: "AI Training",
-    path: ROUTES.aiTraining,
+    path: "ai-training",
     icon: Brain
   },
   {
     label: "Analytics",
-    path: ROUTES.analytics,
+    path: "analytics",
     icon: BarChart3
   },
   {
     label: "Team",
-    path: ROUTES.team,
+    path: "team",
     icon: Users
   },
   {
     label: "Security",
-    path: ROUTES.security,
+    path: "security",
     icon: Shield
   },
   {
     label: "Settings",
-    path: ROUTES.settings,
+    path: "settings",
     icon: Settings
   }
 ]

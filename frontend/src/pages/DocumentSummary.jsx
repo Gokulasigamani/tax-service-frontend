@@ -1,3 +1,4 @@
+import { useState } from "react"
 import {
   FileText,
   Sparkles,
@@ -5,7 +6,24 @@ import {
   AlertCircle
 } from "lucide-react"
 
+import Select from "../components/ui/Select.jsx"
+
 export default function DocumentSummary() {
+  const [template, setTemplate] = useState("Invoice Template")
+  const [status, setStatus] = useState("All Fields")
+
+  const templateOptions = [
+    "Invoice Template",
+    "Receipt Template",
+    "Contract Template"
+  ]
+
+  const statusOptions = [
+    "All Fields",
+    "Validated",
+    "Needs Review"
+  ]
+
   return (
     <div className="space-y-6">
 
@@ -17,10 +35,24 @@ export default function DocumentSummary() {
           Document Summary
         </h1>
 
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm shadow-sm hover:bg-violet-700 transition">
-          <Sparkles size={16} />
-          Re-run Extraction
-        </button>
+        <div className="flex items-center gap-3">
+
+          {/* Template Select */}
+
+          <div className="w-48">
+            <Select
+              value={template}
+              onChange={setTemplate}
+              options={templateOptions}
+            />
+          </div>
+
+          <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm hover:bg-violet-700 transition">
+            <Sparkles size={16} />
+            Re-run Extraction
+          </button>
+
+        </div>
 
       </div>
 
@@ -78,8 +110,6 @@ export default function DocumentSummary() {
 
           </div>
 
-          {/* Placeholder preview */}
-
           <div className="h-[400px] bg-neutral-100 rounded-lg flex items-center justify-center text-neutral-400 text-sm">
             Document Preview Area
           </div>
@@ -90,9 +120,23 @@ export default function DocumentSummary() {
 
         <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
 
-          <h2 className="font-semibold text-neutral-800">
-            Extracted Fields
-          </h2>
+          {/* Header with filter */}
+
+          <div className="flex items-center justify-between">
+
+            <h2 className="font-semibold text-neutral-800">
+              Extracted Fields
+            </h2>
+
+            <div className="w-36">
+              <Select
+                value={status}
+                onChange={setStatus}
+                options={statusOptions}
+              />
+            </div>
+
+          </div>
 
           {[
             { label: "Invoice Number", value: "INV-2026-001", ok: true },
@@ -107,11 +151,11 @@ export default function DocumentSummary() {
                 {field.label}
               </p>
 
-              <div className="flex items-center justify-between border border-neutral-200 rounded-lg px-3 py-2">
+              <div className="flex items-center justify-between border border-neutral-200 rounded-lg px-3 py-2 focus-within:border-violet-400 transition">
 
                 <input
                   defaultValue={field.value}
-                  className="text-sm outline-none w-full"
+                  className="text-sm outline-none w-full bg-transparent"
                 />
 
                 {field.ok ? (
@@ -145,9 +189,8 @@ export default function DocumentSummary() {
         <div className="bg-neutral-50 rounded-lg p-4 text-sm text-neutral-600 leading-relaxed">
 
           This document is an invoice issued by ABC Pvt Ltd. The total payable
-          amount is $2,450, due within standard payment terms. The document
-          structure is consistent with previous invoices and contains clearly
-          defined billing details.
+          amount is $2,450. The structure is consistent with previously processed
+          invoices, and extraction confidence is high across key fields.
 
         </div>
 
