@@ -3,10 +3,8 @@ import { motion } from "framer-motion"
 
 export default function GreetingSection() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <div
+     
       className="relative overflow-hidden rounded-2xl p-6
       bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23]
       border border-white/10 shadow-xl"
@@ -54,6 +52,6 @@ export default function GreetingSection() {
 
       
 
-    </motion.div>
+    </div>
   )
 }
