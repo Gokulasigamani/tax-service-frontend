@@ -1,7 +1,7 @@
 import {
   Sparkles,
   FileText,
-  Brain
+  Brain,
 } from "lucide-react"
 import GreetingSection from "../components/GreetingSection"
 
@@ -17,6 +17,7 @@ import {
   Area
 } from "recharts"
 
+// Data for charts
 const chartData = [
   { name: "Mon", docs: 120, accuracy: 92 },
   { name: "Tue", docs: 210, accuracy: 94 },
@@ -25,6 +26,16 @@ const chartData = [
   { name: "Fri", docs: 300, accuracy: 97 },
   { name: "Sat", docs: 240, accuracy: 95 },
   { name: "Sun", docs: 280, accuracy: 98 }
+]
+
+const activityData = [
+  { name: "Mon", logins: 120, tasks: 80, errors: 5 },
+  { name: "Tue", logins: 200, tasks: 160, errors: 3 },
+  { name: "Wed", logins: 150, tasks: 120, errors: 4 },
+  { name: "Thu", logins: 220, tasks: 200, errors: 2 },
+  { name: "Fri", logins: 250, tasks: 230, errors: 1 },
+  { name: "Sat", logins: 210, tasks: 180, errors: 3 },
+  { name: "Sun", logins: 300, tasks: 290, errors: 0 }
 ]
 
 export default function Overview() {
@@ -169,43 +180,96 @@ export default function Overview() {
 
       </div>
 
-      {/* Middle Section */}
+      {/* 🔥 NEW SECTION: ACTIVITY INSIGHTS */}
 
-      <div className="grid grid-cols-3 gap-6">
+     {/* 🔥 NEW SECTION: ACTIVITY INSIGHTS */}
 
-        <div className="col-span-2 bg-white rounded-xl border p-5">
-          <h2 className="font-semibold mb-4">Latest Documents</h2>
+<div className="grid grid-cols-3 gap-6">
 
-          <div className="divide-y">
-            {["Invoice.pdf", "Contract.docx", "KYC.pdf"].map((doc, i) => (
-              <div key={i} className="py-3 flex justify-between">
-                <div className="flex gap-3 items-center">
-                  <FileText size={16} className="text-violet-600" />
-                  <span>{doc}</span>
-                </div>
-                <span className="text-xs text-neutral-400">Today</span>
-              </div>
-            ))}
-          </div>
-        </div>
+  {/* Chart */}
+  <div className="col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
 
-        <div className="bg-white rounded-xl border p-5 space-y-4">
-          <div className="flex items-center gap-2 font-semibold">
-            <Brain size={18} />
-            Copilot
-          </div>
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="font-semibold text-neutral-800">
+        System Activity Insights
+      </h2>
+      <span className="text-sm text-neutral-400">Last 7 days</span>
+    </div>
 
-          <div className="bg-neutral-50 p-3 rounded-lg text-sm">
-            Try adding validation rules for invoices.
-          </div>
+    <div className="h-[260px]">
 
-          <div className="border rounded-lg flex px-3 py-2">
-            <input className="flex-1 outline-none" placeholder="Ask AI..." />
-            <Sparkles size={16} className="text-violet-600" />
-          </div>
-        </div>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={activityData}>
 
-      </div>
+          <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
+
+          <XAxis dataKey="name" stroke="#999" />
+          <YAxis stroke="#999" />
+
+          <Tooltip
+            contentStyle={{
+              background: "#fff",
+              border: "1px solid #eee",
+              borderRadius: "8px"
+            }}
+          />
+
+          {/* 🔥 FIX: NO LEGEND (avoids crash if not imported) */}
+
+          <Line
+            type="monotone"
+            dataKey="logins"
+            stroke="#6366f1"
+            strokeWidth={2}
+            dot={false}
+          />
+
+          <Line
+            type="monotone"
+            dataKey="tasks"
+            stroke="#10b981"
+            strokeWidth={2}
+            dot={false}
+          />
+
+          <Line
+            type="monotone"
+            dataKey="errors"
+            stroke="#f59e0b"
+            strokeWidth={2}
+            dot={false}
+          />
+
+        </LineChart>
+      </ResponsiveContainer>
+
+    </div>
+
+  </div>
+
+  {/* Insights */}
+  <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
+
+    <h3 className="font-semibold text-neutral-800">
+      Activity Insights
+    </h3>
+
+    <div className="bg-indigo-50 rounded-lg p-3 text-sm text-neutral-700">
+      Peak logins reached 300 on Sunday.
+    </div>
+
+    <div className="bg-emerald-50 rounded-lg p-3 text-sm text-neutral-700">
+      Task completion increased by 20%.
+    </div>
+
+    <div className="bg-amber-50 rounded-lg p-3 text-sm text-neutral-700">
+      Error rate dropped significantly this week.
+    </div>
+
+  </div>
+
+</div>
+      
 
     </div>
   )
