@@ -2,13 +2,12 @@ import { useState } from "react"
 import {
   BarChart3,
   Sparkles,
-  TrendingUp,
-  FileText
+  TrendingUp
 } from "lucide-react"
 
 import Select from "../components/ui/Select"
 
-/* ---------- Metric Card (UNCHANGED) ---------- */
+/* ---------- Metric Card ---------- */
 
 function MetricCard({
   title,
@@ -26,29 +25,30 @@ function MetricCard({
   }
 
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
+    <div className="relative overflow-hidden bg-white rounded-xl sm:rounded-2xl border border-neutral-200 shadow-sm p-4 sm:p-5 min-h-[110px] sm:min-h-[130px]">
 
       <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
 
-      <div className="relative">
+      <div className="relative h-full flex flex-col justify-between">
 
-        <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
-          {title}
-          <span>{footer}</span>
+        <div className="flex items-center justify-between text-xs sm:text-sm text-neutral-500 mb-2 sm:mb-4">
+          <span className="truncate">{title}</span>
+          <span className="text-[10px] sm:text-xs">{footer}</span>
         </div>
 
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between gap-2">
 
-          <div>
-            <p className="text-2xl font-semibold text-neutral-900">
+          <div className="min-w-0">
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-900 truncate">
               {value}
             </p>
-            <span className={`text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
+
+            <span className={`text-xs sm:text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
               {change}
             </span>
           </div>
 
-          <div className="flex items-end gap-[3px] h-10">
+          <div className="flex items-end gap-[2px] sm:gap-[3px] h-8 sm:h-10 shrink-0">
             {children}
           </div>
 
@@ -71,16 +71,20 @@ export default function Analytics() {
 
       {/* Header */}
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-        <h1 className="text-2xl font-semibold text-neutral-800">
-          Analytics
-        </h1>
+        <div>
+          <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">
+            Analytics
+          </h1>
+          <p className="text-xs text-neutral-500 mt-1">
+            Track performance and AI insights
+          </p>
+        </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
 
-          {/* ✅ USING YOUR SELECT */}
-          <div className="w-44">
+          <div className="w-full sm:w-44">
             <Select
               value={range}
               onChange={setRange}
@@ -88,7 +92,7 @@ export default function Analytics() {
             />
           </div>
 
-          <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm">
+          <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm">
             <Sparkles size={16} />
             Generate Report
           </button>
@@ -97,20 +101,18 @@ export default function Analytics() {
 
       </div>
 
-      {/* Metric Cards */}
+      {/* Metrics */}
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
         <MetricCard
           title="Documents Processed"
           value="12,482"
           change="+18.2%"
-          positive
           footer={range}
-          variant="violet"
         >
           {[6, 10, 14, 8, 16, 12, 18].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-violet-400 rounded-sm" />
+            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-violet-400 rounded-sm" />
           ))}
         </MetricCard>
 
@@ -118,12 +120,11 @@ export default function Analytics() {
           title="Avg Extraction Accuracy"
           value="97.4%"
           change="+1.8%"
-          positive
           footer="Model"
           variant="blue"
         >
           {[10, 12, 14, 15, 16, 17, 18].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-blue-400 rounded-sm" />
+            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-blue-400 rounded-sm" />
           ))}
         </MetricCard>
 
@@ -147,24 +148,28 @@ export default function Analytics() {
 
       </div>
 
-      {/* Charts Section */}
+      {/* Charts */}
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
 
-        <div className="col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
+        {/* Trend */}
+
+        <div className="lg:col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
 
           <div className="flex items-center gap-2 font-semibold text-neutral-800">
             <TrendingUp size={18} />
             Document Processing Trend
           </div>
 
-          <div className="h-64 bg-neutral-100 rounded-lg flex items-center justify-center text-neutral-400 text-sm">
-            Line Chart (Docs vs Time)
+          <div className="h-48 sm:h-64 bg-neutral-100 rounded-lg flex items-center justify-center text-neutral-400 text-sm">
+            Line Chart
           </div>
 
         </div>
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
+        {/* Types */}
+
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
 
           <div className="flex items-center gap-2 font-semibold text-neutral-800">
             <BarChart3 size={18} />

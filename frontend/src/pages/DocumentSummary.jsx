@@ -13,7 +13,7 @@ export default function EditorPage() {
 
       {/* Header */}
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
         <div>
           <h1 className="text-2xl font-semibold text-neutral-800">
@@ -24,34 +24,63 @@ export default function EditorPage() {
           </p>
         </div>
 
-        {/* Active Users */}
-        <div className="flex items-center gap-2 text-xs text-neutral-500">
-          <Users size={14} />
-          3 active collaborators
+        {/* Collaborators */}
+        <div className="flex items-center gap-3">
+
+          <div className="flex -space-x-2">
+            <div className="w-7 h-7 rounded-full bg-violet-400" />
+            <div className="w-7 h-7 rounded-full bg-blue-400" />
+            <div className="w-7 h-7 rounded-full bg-emerald-400" />
+          </div>
+
+          <span className="text-xs text-neutral-500">
+            3 active collaborators
+          </span>
+
         </div>
 
       </div>
 
       {/* Toolbar */}
 
-      <div className="bg-white border border-neutral-200 rounded-xl p-3 flex gap-2 shadow-sm">
+      <div className="
+        bg-white border border-neutral-200
+        rounded-xl p-3 shadow-sm
+        flex flex-wrap items-center gap-2
+      ">
 
+        {/* Tools */}
         {["Bold", "Heading", "List"].map((tool) => (
           <button
             key={tool}
-            className="px-3 py-1 text-xs rounded-md text-neutral-600 hover:bg-neutral-100"
+            className="
+              px-3 py-1.5 text-xs rounded-md
+              text-neutral-600
+              hover:bg-neutral-100 transition
+            "
           >
             {tool}
           </button>
         ))}
 
+        {/* Right Actions */}
         <div className="ml-auto flex gap-2">
 
-          <button className="px-3 py-1 text-xs rounded-md bg-violet-600 text-white">
+          <button className="
+            px-3 py-1.5 text-xs rounded-md
+            bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23]
+            text-white shadow-sm
+            hover:opacity-90 transition
+          ">
             Save
           </button>
 
-          <button className="px-3 py-1 text-xs rounded-md border border-neutral-200">
+          <button className="
+            px-3 py-1.5 text-xs rounded-md
+            border border-neutral-200
+            text-neutral-700
+            hover:bg-neutral-50 transition
+          ">
             Share
           </button>
 
@@ -61,40 +90,66 @@ export default function EditorPage() {
 
       {/* Main Layout */}
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {/* Editor */}
 
-        <div className="col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
+        <div className="
+          lg:col-span-2
+          bg-white rounded-xl border border-neutral-200
+          shadow-sm p-5
+        ">
 
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="w-full h-[400px] outline-none resize-none text-sm text-neutral-700"
+            className="
+              w-full h-[300px] sm:h-[400px]
+              outline-none resize-none
+              text-sm text-neutral-700 leading-relaxed
+            "
           />
 
         </div>
 
         {/* AI Panel */}
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
+        <div className="
+          bg-white rounded-xl border border-neutral-200
+          shadow-sm p-5 space-y-4
+        ">
 
-          <div className="flex items-center gap-2 font-semibold">
+          <div className="flex items-center gap-2 font-semibold text-neutral-800">
             <Sparkles size={16} className="text-violet-600" />
             AI Assistant
           </div>
 
-          <button className="w-full text-left text-sm p-3 rounded-lg bg-violet-50 hover:bg-violet-100">
-            Generate content
-          </button>
+          {/* Actions */}
 
-          <button className="w-full text-left text-sm p-3 rounded-lg bg-blue-50 hover:bg-blue-100">
-            Improve writing
-          </button>
+          <div className="space-y-3">
 
-          <button className="w-full text-left text-sm p-3 rounded-lg bg-emerald-50 hover:bg-emerald-100">
-            Summarize document
-          </button>
+            <button className="
+              w-full text-left text-sm p-3 rounded-lg
+              bg-violet-50 hover:bg-violet-100 transition
+            ">
+              Generate content
+            </button>
+
+            <button className="
+              w-full text-left text-sm p-3 rounded-lg
+              bg-blue-50 hover:bg-blue-100 transition
+            ">
+              Improve writing
+            </button>
+
+            <button className="
+              w-full text-left text-sm p-3 rounded-lg
+              bg-emerald-50 hover:bg-emerald-100 transition
+            ">
+              Summarize document
+            </button>
+
+          </div>
 
           {/* Suggestions */}
 
@@ -105,11 +160,11 @@ export default function EditorPage() {
               Suggestions
             </div>
 
-            <div className="text-xs text-neutral-500 bg-neutral-100 p-2 rounded">
+            <div className="text-xs text-neutral-600 bg-neutral-100 p-2 rounded">
               Consider adding a summary section at the end.
             </div>
 
-            <div className="text-xs text-neutral-500 bg-neutral-100 p-2 rounded">
+            <div className="text-xs text-neutral-600 bg-neutral-100 p-2 rounded">
               Improve clarity in the introduction paragraph.
             </div>
 

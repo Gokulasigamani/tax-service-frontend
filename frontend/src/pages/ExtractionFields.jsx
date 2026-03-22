@@ -5,7 +5,7 @@ import {
   TrendingUp
 } from "lucide-react"
 
-/* ---------- Metric Card (UNCHANGED BASE) ---------- */
+/* ---------- Metric Card ---------- */
 
 function MetricCard({ title, value, footer, variant = "violet" }) {
   const variants = {
@@ -15,12 +15,20 @@ function MetricCard({ title, value, footer, variant = "violet" }) {
   }
 
   return (
-    <div className="relative bg-white p-5 rounded-xl border border-neutral-200 shadow-sm">
-      <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]}`} />
-      <div className="relative">
-        <p className="text-sm text-neutral-500 mb-3">{title}</p>
-        <p className="text-2xl font-semibold text-neutral-900">{value}</p>
-        <span className="text-xs text-neutral-400">{footer}</span>
+    <div className="relative bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-neutral-200 shadow-sm min-h-[110px]">
+      <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
+
+      <div className="relative flex flex-col justify-between h-full">
+
+        <div className="flex justify-between text-xs sm:text-sm text-neutral-500 mb-2 sm:mb-3">
+          <span className="truncate">{title}</span>
+          <span className="text-[10px] sm:text-xs">{footer}</span>
+        </div>
+
+        <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-900">
+          {value}
+        </p>
+
       </div>
     </div>
   )
@@ -35,27 +43,9 @@ export default function ProjectsPage() {
   const filters = ["All", "Active", "Completed"]
 
   const projects = [
-    {
-      name: "Product Launch",
-      docs: 12,
-      status: "Active",
-      progress: 70,
-      priority: "High"
-    },
-    {
-      name: "HR Policies",
-      docs: 8,
-      status: "Completed",
-      progress: 100,
-      priority: "Low"
-    },
-    {
-      name: "Support SOP",
-      docs: 5,
-      status: "Active",
-      progress: 45,
-      priority: "Medium"
-    }
+    { name: "Product Launch", docs: 12, status: "Active", progress: 70, priority: "High" },
+    { name: "HR Policies", docs: 8, status: "Completed", progress: 100, priority: "Low" },
+    { name: "Support SOP", docs: 5, status: "Active", progress: 45, priority: "Medium" }
   ]
 
   const filteredProjects = projects.filter((p) => {
@@ -69,10 +59,10 @@ export default function ProjectsPage() {
 
       {/* Header */}
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
         <div>
-          <h1 className="text-2xl font-semibold text-neutral-800">
+          <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">
             Projects
           </h1>
           <p className="text-xs text-neutral-500 mt-1">
@@ -80,7 +70,7 @@ export default function ProjectsPage() {
           </p>
         </div>
 
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm">
+        <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm">
           <Sparkles size={16} />
           Create Project
         </button>
@@ -89,9 +79,9 @@ export default function ProjectsPage() {
 
       {/* Metrics */}
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
-        <MetricCard title="Total Projects" value="18" footer="All" variant="violet" />
+        <MetricCard title="Total Projects" value="18" footer="All" />
         <MetricCard title="Active Projects" value="12" footer="Ongoing" variant="blue" />
         <MetricCard title="Team Members" value="32" footer="Across teams" variant="emerald" />
 
@@ -99,9 +89,9 @@ export default function ProjectsPage() {
 
       {/* Search + Filter */}
 
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
 
-        <div className="flex items-center gap-2 border border-neutral-200 rounded-lg px-3 py-2 w-64 bg-white shadow-sm">
+        <div className="flex items-center gap-2 border border-neutral-200 rounded-lg px-3 py-2 w-full sm:w-64 bg-white shadow-sm">
           <Search size={16} className="text-neutral-400" />
           <input
             placeholder="Search projects..."
@@ -111,52 +101,53 @@ export default function ProjectsPage() {
           />
         </div>
 
-        <div className="flex gap-2 bg-white border border-neutral-200 rounded-xl p-1 shadow-sm">
+        <div className="overflow-x-auto">
+          <div className="flex gap-2 bg-white border border-neutral-200 rounded-xl p-1 shadow-sm w-max">
 
-          {filters.map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-3 py-1 text-xs rounded-lg transition ${
-                filter === f
-                  ? "bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white"
-                  : "text-neutral-600 hover:bg-neutral-100"
-              }`}
-            >
-              {f}
-            </button>
-          ))}
+            {filters.map((f) => (
+              <button
+                key={f}
+                onClick={() => setFilter(f)}
+                className={`px-3 py-1 text-xs rounded-lg whitespace-nowrap ${
+                  filter === f
+                    ? "bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white"
+                    : "text-neutral-600 hover:bg-neutral-100"
+                }`}
+              >
+                {f}
+              </button>
+            ))}
 
+          </div>
         </div>
 
       </div>
 
       {/* Main Grid */}
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
 
         {/* Projects */}
 
-        <div className="col-span-2 grid grid-cols-2 gap-6">
+        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
 
           {filteredProjects.map((project, i) => (
 
             <div
               key={i}
-              className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 transition hover:shadow-md"
+              className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4"
             >
 
               {/* Header */}
-              <div className="flex justify-between items-center mb-3">
+              <div className="flex justify-between items-center">
 
-                <h2 className="font-semibold text-neutral-800">
+                <h2 className="font-semibold text-neutral-800 text-sm sm:text-base">
                   {project.name}
                 </h2>
 
-                <div className="flex items-center gap-2">
+                <div className="flex gap-1 sm:gap-2 flex-wrap">
 
-                  {/* Status */}
-                  <span className={`text-xs px-2 py-1 rounded-md ${
+                  <span className={`text-[10px] sm:text-xs px-2 py-1 rounded-md ${
                     project.status === "Active"
                       ? "bg-green-100 text-green-600"
                       : "bg-neutral-100 text-neutral-500"
@@ -164,8 +155,7 @@ export default function ProjectsPage() {
                     {project.status}
                   </span>
 
-                  {/* Priority */}
-                  <span className={`text-xs px-2 py-1 rounded-md ${
+                  <span className={`text-[10px] sm:text-xs px-2 py-1 rounded-md ${
                     project.priority === "High"
                       ? "bg-red-100 text-red-500"
                       : project.priority === "Medium"
@@ -179,16 +169,14 @@ export default function ProjectsPage() {
 
               </div>
 
-              {/* Docs + Activity */}
-              <div className="flex justify-between text-xs text-neutral-500 mb-3">
+              {/* Docs */}
+              <div className="flex justify-between text-xs text-neutral-500">
                 <span>{project.docs} docs</span>
-                <span className="flex items-center gap-1 text-green-600">
-                  ● Active now
-                </span>
+                <span className="text-green-600">Active</span>
               </div>
 
               {/* Progress */}
-              <div className="mb-4">
+              <div>
 
                 <div className="flex justify-between text-xs text-neutral-500 mb-1">
                   <span>Progress</span>
@@ -204,24 +192,20 @@ export default function ProjectsPage() {
 
               </div>
 
-              {/* Health Score */}
-              <div className="text-xs text-neutral-500 mb-4 flex items-center gap-2">
+              {/* Health */}
+              <div className="text-xs text-neutral-500 flex items-center gap-2">
                 <TrendingUp size={12} className="text-violet-600" />
                 Project Health: Good
               </div>
 
               {/* Members */}
-              <div className="flex items-center justify-between mb-4">
-
-                <div className="flex -space-x-2">
-                  <div className="w-7 h-7 bg-violet-400 rounded-full" />
-                  <div className="w-7 h-7 bg-blue-400 rounded-full" />
-                  <div className="w-7 h-7 bg-emerald-400 rounded-full" />
-                  <div className="w-7 h-7 bg-neutral-300 rounded-full flex items-center justify-center text-xs">
-                    +2
-                  </div>
+              <div className="flex -space-x-2">
+                <div className="w-6 h-6 bg-violet-400 rounded-full" />
+                <div className="w-6 h-6 bg-blue-400 rounded-full" />
+                <div className="w-6 h-6 bg-emerald-400 rounded-full" />
+                <div className="w-6 h-6 bg-neutral-300 rounded-full flex items-center justify-center text-[10px]">
+                  +2
                 </div>
-
               </div>
 
               {/* Actions */}
@@ -237,26 +221,24 @@ export default function ProjectsPage() {
 
         </div>
 
-        {/* AI Insights */}
+        {/* Insights */}
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
 
           <div className="flex items-center gap-2 font-semibold text-neutral-800">
             <Sparkles size={16} className="text-violet-600" />
             Smart Insights
           </div>
 
-          <div className="bg-violet-50 p-3 rounded-lg text-sm">
-            Projects below 50% progress need immediate attention
-          </div>
-
-          <div className="bg-blue-50 p-3 rounded-lg text-sm">
-            Teams with 3+ members complete tasks faster
-          </div>
-
-          <div className="bg-emerald-50 p-3 rounded-lg text-sm">
-            AI-generated documents improved efficiency by 28%
-          </div>
+          {[
+            "Projects below 50% need attention",
+            "Teams with more members perform faster",
+            "AI usage improved efficiency by 28%"
+          ].map((item, i) => (
+            <div key={i} className="bg-neutral-50 p-3 rounded-lg text-sm">
+              {item}
+            </div>
+          ))}
 
         </div>
 

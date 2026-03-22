@@ -26,29 +26,29 @@ function MetricCard({
   }
 
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
-
+    <div className="relative overflow-hidden bg-white rounded-xl sm:rounded-2xl border border-neutral-200 shadow-sm p-4 sm:p-5 min-h-[110px] sm:min-h-[130px]">
       <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
 
-      <div className="relative">
+      <div className="relative h-full flex flex-col justify-between">
 
-        <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
-          {title}
-          <span>{footer}</span>
+        <div className="flex items-center justify-between text-xs sm:text-sm text-neutral-500 mb-2 sm:mb-4">
+          <span className="truncate">{title}</span>
+          <span className="text-[10px] sm:text-xs">{footer}</span>
         </div>
 
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between gap-2">
 
-          <div>
-            <p className="text-2xl font-semibold text-neutral-900">
+          <div className="min-w-0">
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-900 truncate">
               {value}
             </p>
-            <span className={`text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
+
+            <span className={`text-xs sm:text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
               {change}
             </span>
           </div>
 
-          <div className="flex items-end gap-[3px] h-10">
+          <div className="flex items-end gap-[2px] sm:gap-[3px] h-8 sm:h-10 shrink-0">
             {children}
           </div>
 
@@ -74,8 +74,7 @@ export default function WorkspaceDocuments() {
       status: "Draft",
       tag: "AI",
       edited: "Just now",
-      starred: false,
-      collaborators: ["violet", "blue"]
+      starred: false
     }))
     setDocs((prev) => [...prev, ...newDocs])
   }
@@ -100,32 +99,37 @@ export default function WorkspaceDocuments() {
 
       {/* Header */}
 
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-neutral-800">
-          Workspace
-        </h1>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg
-          bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23]
-          text-white text-sm shadow-sm">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">
+            Workspace
+          </h1>
+          <p className="text-xs text-neutral-500 mt-1">
+            Manage and collaborate on documents
+          </p>
+        </div>
+
+        <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm">
           <Sparkles size={16} />
           Create Document
         </button>
+
       </div>
 
       {/* Metrics */}
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
         <MetricCard title="Total Documents" value={docs.length} change="+14%" footer="Workspace">
           {[6, 10, 14, 8, 16, 12, 18].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-violet-400 rounded-sm" />
+            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-violet-400 rounded-sm" />
           ))}
         </MetricCard>
 
         <MetricCard title="Collaborations" value="128" change="+9%" footer="Last 7 days" variant="blue">
           {[14, 16, 12, 10, 9, 8, 7].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-blue-400 rounded-sm" />
+            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-blue-400 rounded-sm" />
           ))}
         </MetricCard>
 
@@ -138,11 +142,10 @@ export default function WorkspaceDocuments() {
 
       </div>
 
-      {/* 🔍 Search */}
+      {/* Search */}
 
-      <div className="flex items-center gap-3">
-
-        <div className="flex items-center gap-2 border border-neutral-200 rounded-lg px-3 py-2 w-64 bg-white">
+      <div className="w-full sm:w-72">
+        <div className="flex items-center gap-2 border border-neutral-200 rounded-lg px-3 py-2 bg-white">
           <Search size={16} className="text-neutral-400" />
           <input
             placeholder="Search documents..."
@@ -151,56 +154,56 @@ export default function WorkspaceDocuments() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-
       </div>
 
-      {/* 🔥 Premium Tabs */}
+      {/* Tabs */}
 
-      <div className="bg-white border border-neutral-200 rounded-xl p-2 flex gap-2 w-fit shadow-sm">
+      <div className="overflow-x-auto">
+        <div className="bg-white border border-neutral-200 rounded-xl p-2 flex gap-2 w-max shadow-sm">
 
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-4 py-1.5 text-xs font-medium rounded-lg transition-all
-              ${
-                activeTab === tab
-                  ? "bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white shadow-sm"
-                  : "text-neutral-600 hover:bg-neutral-100"
-              }`}
-          >
-            {tab}
-          </button>
-        ))}
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap
+                ${
+                  activeTab === tab
+                    ? "bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white"
+                    : "text-neutral-600 hover:bg-neutral-100"
+                }`}
+            >
+              {tab}
+            </button>
+          ))}
 
+        </div>
       </div>
 
       {/* Upload */}
 
-      <div
-        onDrop={(e) => {
-          e.preventDefault()
-          handleDocs(e.dataTransfer.files)
-        }}
-        onDragOver={(e) => e.preventDefault()}
-        className="bg-white rounded-xl border border-neutral-200 p-6 text-center"
+      <label
+        className="block cursor-pointer bg-white rounded-xl border border-neutral-200 p-6 text-center hover:border-violet-300 transition"
       >
         <UploadCloud size={24} className="mx-auto text-violet-600 mb-2" />
         <p className="text-sm text-neutral-700">
-          Drag files or upload documents
+          Drag & drop files or click to upload
         </p>
-      </div>
+
+        <input
+          type="file"
+          multiple
+          onChange={(e) => handleDocs(e.target.files)}
+          className="hidden"
+        />
+      </label>
 
       {/* Documents */}
 
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
 
         {filteredDocs.length === 0 ? (
           <div className="text-center py-10 text-neutral-500 text-sm">
             No documents available
-            <div className="text-violet-600 mt-2 cursor-pointer text-sm">
-              Create a document using AI
-            </div>
           </div>
         ) : (
 
@@ -208,27 +211,25 @@ export default function WorkspaceDocuments() {
 
             {filteredDocs.map((doc, i) => (
 
-              <div key={i} className="flex items-center justify-between py-3 group">
+              <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-3">
 
                 {/* Left */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
 
-                  <div className="p-2 bg-violet-100 rounded-lg">
+                  <div className="p-2 bg-violet-100 rounded-lg shrink-0">
                     <FileText size={16} className="text-violet-600" />
                   </div>
 
-                  <div>
-                    <p className="text-sm font-medium text-neutral-800">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-neutral-800 truncate">
                       {doc.file.name}
                     </p>
 
-                    <div className="flex items-center gap-2 text-xs text-neutral-500 mt-1">
+                    <div className="flex flex-wrap gap-2 text-xs text-neutral-500 mt-1">
                       <span>{doc.edited}</span>
-
                       <span className="px-2 py-0.5 bg-violet-100 text-violet-600 rounded-md">
                         {doc.tag}
                       </span>
-
                       <span className="px-2 py-0.5 bg-blue-100 text-blue-600 rounded-md">
                         {doc.status}
                       </span>
@@ -238,9 +239,8 @@ export default function WorkspaceDocuments() {
                 </div>
 
                 {/* Right */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
 
-                  {/* Star */}
                   <button onClick={() => toggleStar(i)}>
                     <Star
                       size={16}
@@ -252,17 +252,6 @@ export default function WorkspaceDocuments() {
                     />
                   </button>
 
-                  {/* Actions */}
-                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition">
-                    <button className="text-xs text-neutral-600 hover:text-black">
-                      Open
-                    </button>
-                    <button className="text-xs text-neutral-600 hover:text-black">
-                      AI
-                    </button>
-                  </div>
-
-                  {/* Delete */}
                   <button
                     onClick={() => setDocs(docs.filter((_, idx) => idx !== i))}
                     className="p-2 hover:bg-neutral-100 rounded-md"
