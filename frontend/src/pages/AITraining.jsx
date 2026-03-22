@@ -9,6 +9,8 @@ import {
 
 import Select from "../components/ui/Select"
 
+/* ---------- Metric Card (EXACT) ---------- */
+
 function MetricCard({
   title,
   value,
@@ -27,7 +29,6 @@ function MetricCard({
   return (
     <div className="relative overflow-hidden bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
 
-      {/* Gradient */}
       <div
         className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`}
       />
@@ -65,6 +66,8 @@ function MetricCard({
   )
 }
 
+/* ---------- Page ---------- */
+
 export default function AITraining() {
   const [dataset, setDataset] = useState("Invoice Dataset")
 
@@ -88,16 +91,10 @@ export default function AITraining() {
         <div className="flex items-center gap-3">
 
           <div className="w-48">
-            <Select
-              value={dataset}
-              onChange={setDataset}
-              options={datasets}
-            />
+            <Select value={dataset} onChange={setDataset} options={datasets} />
           </div>
 
-          {/* Premium Button */}
-
-          <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm shadow-sm hover:bg-violet-700 transition">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm">
             <Sparkles size={16} />
             Train Model
           </button>
@@ -106,49 +103,35 @@ export default function AITraining() {
 
       </div>
 
-      {/* Gradient Metric Cards */}
+      {/* 🔥 EXACT METRIC DESIGN */}
 
       <div className="grid grid-cols-3 gap-6">
-
-        {/* Accuracy */}
 
         <MetricCard
           title="Model Accuracy"
           value="96.8%"
           change="+2.3%"
-          positive={true}
+          positive
           footer="Last 7 days"
           variant="violet"
         >
           {[6, 10, 14, 12, 16, 18, 20].map((h, i) => (
-            <div
-              key={i}
-              style={{ height: `${h}px` }}
-              className="w-[4px] bg-violet-400 rounded-sm"
-            />
+            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-violet-400 rounded-sm" />
           ))}
         </MetricCard>
-
-        {/* Documents Trained */}
 
         <MetricCard
           title="Documents Trained"
           value="3,421"
           change="+8.1%"
-          positive={true}
+          positive
           footer="All time"
           variant="blue"
         >
           {[8, 9, 10, 12, 14, 15, 16].map((h, i) => (
-            <div
-              key={i}
-              style={{ height: `${h}px` }}
-              className="w-[4px] bg-blue-400 rounded-sm"
-            />
+            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-blue-400 rounded-sm" />
           ))}
         </MetricCard>
-
-        {/* Pending Feedback */}
 
         <MetricCard
           title="Pending Feedback"
@@ -170,25 +153,19 @@ export default function AITraining() {
 
       </div>
 
-      {/* Main Section */}
+      {/* Rest of your page remains SAME */}
 
       <div className="grid grid-cols-3 gap-6">
 
-        {/* Feedback Queue */}
-
         <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
 
-          <div className="flex items-center gap-2 font-semibold text-neutral-800">
+          <div className="flex items-center gap-2 font-semibold">
             <Brain size={18} />
             Training Feedback
           </div>
 
           {[1, 2, 3, 4].map((_, i) => (
-
-            <div
-              key={i}
-              className="p-3 border border-neutral-200 rounded-lg space-y-1"
-            >
+            <div key={i} className="p-3 border border-neutral-200 rounded-lg space-y-1">
 
               <p className="text-sm font-medium">
                 Invoice #{i + 1001}
@@ -213,16 +190,12 @@ export default function AITraining() {
               </div>
 
             </div>
-
           ))}
 
         </div>
 
-        {/* Insights */}
-
-        <div className="col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-6">
-
-          <div className="flex items-center gap-2 font-semibold text-neutral-800">
+        <div className="col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
+          <div className="flex items-center gap-2 font-semibold mb-4">
             <BarChart3 size={18} />
             Training Insights
           </div>
@@ -230,28 +203,6 @@ export default function AITraining() {
           <div className="h-52 bg-neutral-100 rounded-lg flex items-center justify-center text-neutral-400 text-sm">
             Accuracy Trend Chart
           </div>
-
-          <div className="space-y-3">
-
-            <div className="flex items-center gap-2 font-semibold text-neutral-800">
-              <Sparkles size={16} className="text-violet-600" />
-              AI Suggestions
-            </div>
-
-            <div className="bg-neutral-50 rounded-lg p-3 text-sm text-neutral-600">
-              Increase training samples for low-confidence fields.
-            </div>
-
-            <div className="bg-neutral-50 rounded-lg p-3 text-sm text-neutral-600">
-              Add validation rules for date and currency fields.
-            </div>
-
-            <div className="bg-neutral-50 rounded-lg p-3 text-sm text-neutral-600">
-              Separate datasets for better model specialization.
-            </div>
-
-          </div>
-
         </div>
 
       </div>

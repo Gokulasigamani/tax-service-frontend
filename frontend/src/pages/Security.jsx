@@ -1,88 +1,80 @@
 import { useState } from "react"
 import {
-  Shield,
-  Lock,
-  KeyRound,
-  CheckCircle2,
-  AlertTriangle,
-  Activity
+  Sparkles,
+  Zap,
+  Play,
+  Pause,
+  Plus,
+  Activity,
+  Clock
 } from "lucide-react"
 
-import Select from "../components/ui/Select"
+/* ---------- Metric Card ---------- */
 
-function MetricCard({
-  title,
-  value,
-  footer,
-  variant = "violet",
-  children
-}) {
-  const variants = {
-    violet: "from-violet-50/60 to-transparent",
-    emerald: "from-emerald-50/60 to-transparent",
-    amber: "from-amber-50/60 to-transparent"
-  }
-
+function MetricCard({ title, value, footer }) {
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
-
-      <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
-
-      <div className="relative">
-
-        <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
-          {title}
-          <span>{footer}</span>
-        </div>
-
-        <div className="flex items-end justify-between">
-
-          <div>
-            <p className="text-2xl font-semibold text-neutral-900">
-              {value}
-            </p>
-          </div>
-
-          <div className="flex items-end gap-[3px] h-10">
-            {children}
-          </div>
-
-        </div>
-
-      </div>
+    <div className="bg-white p-5 rounded-xl border border-neutral-200 shadow-sm">
+      <p className="text-sm text-neutral-500 mb-2">{title}</p>
+      <p className="text-2xl font-semibold text-neutral-900">{value}</p>
+      <span className="text-xs text-neutral-400">{footer}</span>
     </div>
   )
 }
 
-export default function Security() {
-  const [mfa, setMfa] = useState("Enabled")
-  const [session, setSession] = useState("7 Days")
+/* ---------- Page ---------- */
+
+export default function AutomationHub() {
+  const [workflows, setWorkflows] = useState([
+    {
+      name: "Invoice Processing",
+      trigger: "Document Upload",
+      action: "Extract Data",
+      active: true,
+      runs: 1240,
+      success: "98%",
+      lastRun: "2 mins ago",
+      tag: "AI"
+    },
+    {
+      name: "AI Summary",
+      trigger: "New Document",
+      action: "Generate Summary",
+      active: false,
+      runs: 842,
+      success: "95%",
+      lastRun: "10 mins ago",
+      tag: "System"
+    }
+  ])
+
+  const toggleWorkflow = (index) => {
+    const updated = [...workflows]
+    updated[index].active = !updated[index].active
+    setWorkflows(updated)
+  }
 
   return (
     <div className="space-y-6">
 
       {/* Header */}
 
-      <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm p-6">
+      <div className="flex items-center justify-between">
 
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-50/70 to-transparent pointer-events-none" />
-
-        <div className="relative flex items-center gap-4">
-
-          <div className="p-3 bg-violet-100 rounded-xl">
-            <Shield size={22} className="text-violet-600" />
-          </div>
-
-          <div>
-            <h1 className="text-xl font-semibold text-neutral-800">
-              Security & Access
-            </h1>
-            <p className="text-sm text-neutral-500">
-              Manage authentication, sessions and system security
-            </p>
-          </div>
-
+        <div>
+          <h1 className="text-2xl font-semibold text-neutral-800">
+            Automation Hub
+          </h1>
+          <p className="text-xs text-neutral-500 mt-1">
+            Build intelligent workflows powered by AI
+          </p>
         </div>
+
+        <button className="flex items-center gap-2 px-4 py-2 rounded-lg
+          bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23]
+          text-white text-sm shadow-sm">
+          <Plus size={16} />
+          Create Workflow
+        </button>
 
       </div>
 
@@ -90,146 +82,143 @@ export default function Security() {
 
       <div className="grid grid-cols-3 gap-6">
 
-        <MetricCard title="Security Score" value="92%" footer="Overall" variant="violet">
-          {[10, 12, 14, 16, 18, 20, 22].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-violet-400 rounded-sm" />
-          ))}
-        </MetricCard>
-
-        <MetricCard title="Active Sessions" value="14" footer="Users" variant="emerald">
-          {[6, 8, 10, 12, 14, 16, 18].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-emerald-400 rounded-sm" />
-          ))}
-        </MetricCard>
-
-        <MetricCard title="Threat Alerts" value="2" footer="Last 24h" variant="amber">
-          {[14, 12, 10, 8, 6, 5, 4].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-amber-400 rounded-sm" />
-          ))}
-        </MetricCard>
+        <MetricCard title="Active Workflows" value="6" footer="Running" />
+        <MetricCard title="Executions" value="2,842" footer="This week" />
+        <MetricCard title="Time Saved" value="18h" footer="Automation impact" />
 
       </div>
 
-      {/* Settings */}
+      {/* 🔥 Performance Strip */}
+
+      <div className="flex gap-4 text-xs text-neutral-500">
+        <span>Automation success rate at 97%</span>
+        <span>High usage in AI workflows</span>
+        <span>System efficiency improved</span>
+      </div>
+
+      {/* Main Grid */}
 
       <div className="grid grid-cols-3 gap-6">
 
-        {/* Authentication */}
+        {/* Workflows */}
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
+        <div className="col-span-2 grid grid-cols-2 gap-6">
 
-          <div className="flex items-center gap-2 font-semibold text-neutral-800">
-            <Lock size={18} />
-            Authentication
-          </div>
+          {workflows.map((wf, i) => (
 
-          <div>
-            <p className="text-xs text-neutral-500 mb-1">
-              Multi-Factor Authentication
-            </p>
-            <Select
-              value={mfa}
-              onChange={setMfa}
-              options={["Enabled", "Disabled"]}
-            />
-          </div>
+            <div
+              key={i}
+              className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4 hover:shadow-md transition"
+            >
 
-          <div className="flex items-center justify-between p-3 rounded-lg bg-neutral-50">
+              {/* Header */}
+              <div className="flex justify-between items-center">
 
-            <span className="text-sm text-neutral-700">
-              Password Strength
-            </span>
+                <h2 className="font-semibold text-neutral-800">
+                  {wf.name}
+                </h2>
 
-            <span className="text-green-600 text-sm flex items-center gap-1">
-              <CheckCircle2 size={14} />
-              Strong
-            </span>
+                <button onClick={() => toggleWorkflow(i)}>
+                  {wf.active ? (
+                    <Pause size={16} className="text-orange-500" />
+                  ) : (
+                    <Play size={16} className="text-green-600" />
+                  )}
+                </button>
 
-          </div>
+              </div>
 
-        </div>
+              {/* Tag */}
+              <span className="text-xs px-2 py-1 rounded-md bg-violet-100 text-violet-600">
+                {wf.tag}
+              </span>
 
-        {/* Sessions */}
+              {/* Flow */}
+              <div className="text-sm text-neutral-600 space-y-2">
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
+                <div className="flex items-center gap-2">
+                  <Zap size={14} className="text-violet-600" />
+                  {wf.trigger}
+                </div>
 
-          <div className="flex items-center gap-2 font-semibold text-neutral-800">
-            <KeyRound size={18} />
-            Sessions
-          </div>
+                <div className="flex items-center gap-2">
+                  <Sparkles size={14} className="text-blue-500" />
+                  {wf.action}
+                </div>
 
-          <div>
-            <p className="text-xs text-neutral-500 mb-1">
-              Session Duration
-            </p>
+              </div>
 
-            <Select
-              value={session}
-              onChange={setSession}
-              options={["1 Day", "7 Days", "30 Days"]}
-            />
+              {/* Stats */}
+              <div className="flex justify-between text-xs text-neutral-500">
 
-          </div>
+                <span>{wf.runs} runs</span>
+                <span>{wf.success} success</span>
 
-          <div className="flex items-center justify-between p-3 rounded-lg bg-neutral-50">
+              </div>
 
-            <span className="text-sm text-neutral-700">
-              Active Devices
-            </span>
+              <div className="text-xs text-neutral-400 flex items-center gap-1">
+                <Clock size={12} />
+                Last run {wf.lastRun}
+              </div>
 
-            <span className="text-neutral-600 text-sm">
-              5 devices
-            </span>
+              {/* Status */}
+              <span className={`text-xs px-2 py-1 rounded-md ${
+                wf.active
+                  ? "bg-green-100 text-green-600"
+                  : "bg-neutral-100 text-neutral-500"
+              }`}>
+                {wf.active ? "Active" : "Paused"}
+              </span>
 
-          </div>
-
-        </div>
-
-        {/* Alerts */}
-
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
-
-          <div className="flex items-center gap-2 font-semibold text-neutral-800">
-            <AlertTriangle size={18} />
-            Alerts
-          </div>
-
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-700">
-            Suspicious login detected from new location
-          </div>
-
-          <div className="bg-neutral-50 rounded-lg p-3 text-sm text-neutral-600">
-            No critical threats detected
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* Activity Logs */}
-
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
-
-        <div className="flex items-center gap-2 font-semibold text-neutral-800 mb-4">
-          <Activity size={18} />
-          Activity Logs
-        </div>
-
-        <div className="divide-y text-sm">
-
-          {[
-            "User Gokul logged in from Chrome",
-            "New API key generated",
-            "Password updated successfully",
-            "Failed login attempt detected"
-          ].map((log, i) => (
-
-            <div key={i} className="py-3 text-neutral-600">
-              {log}
             </div>
 
           ))}
 
+        </div>
+
+        {/* 🔥 Activity Feed */}
+
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
+
+          <div className="flex items-center gap-2 font-semibold">
+            <Activity size={16} />
+            Execution Activity
+          </div>
+
+          {[
+            "Invoice processed successfully",
+            "Summary generated",
+            "Workflow paused",
+            "New automation triggered"
+          ].map((log, i) => (
+            <div key={i} className="text-sm text-neutral-600 bg-neutral-100 p-2 rounded">
+              {log}
+            </div>
+          ))}
+
+        </div>
+
+      </div>
+
+      {/* AI Suggestions */}
+
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-3">
+
+        <div className="flex items-center gap-2 font-semibold">
+          <Sparkles size={16} className="text-violet-600" />
+          Smart Automation Suggestions
+        </div>
+
+        <div className="bg-violet-50 p-3 rounded-lg text-sm">
+          Auto-approve low-risk invoices to reduce manual work
+        </div>
+
+        <div className="bg-blue-50 p-3 rounded-lg text-sm">
+          Trigger alerts for failed document processing
+        </div>
+
+        <div className="bg-emerald-50 p-3 rounded-lg text-sm">
+          Generate weekly reports automatically
         </div>
 
       </div>

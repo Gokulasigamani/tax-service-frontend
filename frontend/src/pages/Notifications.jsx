@@ -1,148 +1,133 @@
 import { useState } from "react"
 import {
-  CheckCircle2,
-  AlertCircle,
-  Info,
-  ChevronDown
+  Bell,
+  Check,
+  Sparkles
 } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
 
-export default function Notifications() {
-  const [notifications, setNotifications] = useState([
+export default function NotificationsPage() {
+  const [tab, setTab] = useState("All")
+
+  const tabs = ["All", "Mentions", "AI", "System"]
+
+  const notifications = [
     {
-      id: 1,
-      title: "Document Processed Successfully",
-      details: "Your document 'Invoice_123.pdf' was processed with 98% accuracy.",
-      type: "success",
-      read: false,
-      isOpen: false
+      text: "Gokul edited Project Plan",
+      type: "mentions",
+      time: "2 min ago",
+      unread: true
     },
     {
-      id: 2,
-      title: "Low Confidence in Extraction",
-      details: "The AI model had difficulty processing the fields in 'Contract_456.pdf'.",
-      type: "warning",
-      read: false,
-      isOpen: false
+      text: "AI generated document summary",
+      type: "ai",
+      time: "5 min ago",
+      unread: true
     },
     {
-      id: 3,
-      title: "New AI Model Update Available",
-      details: "A new version of the AI model has been released. Update now to improve extraction accuracy.",
-      type: "info",
-      read: false,
-      isOpen: false
+      text: "New member joined your team",
+      type: "system",
+      time: "10 min ago",
+      unread: false
     }
-  ])
+  ]
 
-  const dismissNotification = (id) => {
-    setNotifications((prev) =>
-      prev.filter((notification) => notification.id !== id)
-    )
-  }
-
-  const clearAllNotifications = () => {
-    setNotifications([])
-  }
-
-  const toggleAccordion = (id) => {
-    setNotifications((prev) =>
-      prev.map((notification) =>
-        notification.id === id
-          ? { ...notification, isOpen: !notification.isOpen }
-          : notification
-      )
-    )
-  }
+  const filtered =
+    tab === "All"
+      ? notifications
+      : notifications.filter(n => n.type === tab.toLowerCase())
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6">
 
       {/* Header */}
 
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold text-neutral-800">Notifications</h1>
-        <button
-          onClick={clearAllNotifications}
-          className="text-sm text-violet-600 hover:text-violet-800"
-        >
-          Clear All
+      <div className="flex items-center justify-between">
+
+        <div>
+          <h1 className="text-2xl font-semibold text-neutral-800">
+            Notifications
+          </h1>
+          <p className="text-xs text-neutral-500 mt-1">
+            Stay updated with your workspace activity
+          </p>
+        </div>
+
+        <button className="text-sm text-violet-600 flex items-center gap-1">
+          <Check size={14} />
+          Mark all read
         </button>
+
       </div>
 
-      {/* Notifications Accordion */}
+      {/* Tabs */}
 
-      <div className="space-y-4">
+      <div className="bg-white border border-neutral-200 rounded-xl p-2 flex gap-2 w-fit shadow-sm">
 
-        <AnimatePresence>
-          {notifications.map((notification) => (
-            <motion.div
-              key={notification.id}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3 }}
-              className={`bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 ${
-                notification.read ? "opacity-50" : ""
-              }`}
-            >
-              <div
-                className="cursor-pointer p-4 flex justify-between items-center"
-                onClick={() => toggleAccordion(notification.id)}
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`p-2 rounded-full ${
-                      notification.type === "success"
-                        ? "bg-green-50 text-green-600"
-                        : notification.type === "warning"
-                        ? "bg-yellow-50 text-yellow-600"
-                        : "bg-blue-50 text-blue-600"
-                    }`}
-                  >
-                    {notification.type === "success" && (
-                      <CheckCircle2 size={18} />
-                    )}
-                    {notification.type === "warning" && (
-                      <AlertCircle size={18} />
-                    )}
-                    {notification.type === "info" && <Info size={18} />}
-                  </div>
-                  <div>
-                    <p className="text-lg font-medium text-neutral-800">
-                      {notification.title}
-                    </p>
-                  </div>
-                </div>
+        {tabs.map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`px-4 py-1.5 text-xs rounded-lg ${
+              tab === t
+                ? "bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white"
+                : "text-neutral-600 hover:bg-neutral-100"
+            }`}
+          >
+            {t}
+          </button>
+        ))}
 
-                <ChevronDown size={18} className="text-neutral-400" />
+      </div>
+
+      {/* Notifications List */}
+
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm">
+
+        {filtered.map((n, i) => (
+
+          <div
+            key={i}
+            className={`flex items-start gap-3 p-4 border-b last:border-none
+              ${n.unread ? "bg-violet-50/40" : ""}
+            `}
+          >
+
+            {/* Avatar */}
+            <div className="w-8 h-8 rounded-full bg-violet-400 text-white flex items-center justify-center text-xs">
+              N
+            </div>
+
+            {/* Content */}
+            <div className="flex-1">
+
+              <p className="text-sm text-neutral-800">
+                {n.text}
+              </p>
+
+              <div className="flex items-center gap-2 mt-1 text-xs text-neutral-500">
+                <span>{n.time}</span>
+
+                {n.type === "ai" && (
+                  <span className="flex items-center gap-1 text-violet-600">
+                    <Sparkles size={12} />
+                    AI
+                  </span>
+                )}
               </div>
 
-              {/* Notification Details (accordion open) */}
-              <AnimatePresence>
-                {notification.isOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="p-4 bg-neutral-50"
-                  >
-                    <p className="text-sm text-neutral-600">{notification.details}</p>
+            </div>
 
-                    <button
-                      onClick={() => dismissNotification(notification.id)}
-                      className="text-sm text-red-600 hover:text-red-800 mt-3"
-                    >
-                      Dismiss
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+            {/* Action */}
+            <button className="text-xs text-neutral-400 hover:text-neutral-700">
+              Dismiss
+            </button>
+
+          </div>
+
+        ))}
+
       </div>
+
     </div>
   )
 }

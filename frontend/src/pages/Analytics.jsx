@@ -8,6 +8,8 @@ import {
 
 import Select from "../components/ui/Select"
 
+/* ---------- Metric Card (UNCHANGED) ---------- */
+
 function MetricCard({
   title,
   value,
@@ -26,9 +28,7 @@ function MetricCard({
   return (
     <div className="relative overflow-hidden bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
 
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`}
-      />
+      <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
 
       <div className="relative">
 
@@ -43,11 +43,7 @@ function MetricCard({
             <p className="text-2xl font-semibold text-neutral-900">
               {value}
             </p>
-            <span
-              className={`text-sm ${
-                positive ? "text-green-600" : "text-red-500"
-              }`}
-            >
+            <span className={`text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
               {change}
             </span>
           </div>
@@ -62,6 +58,8 @@ function MetricCard({
     </div>
   )
 }
+
+/* ---------- Page ---------- */
 
 export default function Analytics() {
   const [range, setRange] = useState("Last 7 days")
@@ -81,6 +79,7 @@ export default function Analytics() {
 
         <div className="flex items-center gap-3">
 
+          {/* ✅ USING YOUR SELECT */}
           <div className="w-44">
             <Select
               value={range}
@@ -89,7 +88,7 @@ export default function Analytics() {
             />
           </div>
 
-          <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm hover:bg-violet-700 transition">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm">
             <Sparkles size={16} />
             Generate Report
           </button>
@@ -107,7 +106,7 @@ export default function Analytics() {
           value="12,482"
           change="+18.2%"
           positive
-          footer="Last 7 days"
+          footer={range}
           variant="violet"
         >
           {[6, 10, 14, 8, 16, 12, 18].map((h, i) => (
@@ -152,8 +151,6 @@ export default function Analytics() {
 
       <div className="grid grid-cols-3 gap-6">
 
-        {/* Volume Chart */}
-
         <div className="col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
 
           <div className="flex items-center gap-2 font-semibold text-neutral-800">
@@ -166,8 +163,6 @@ export default function Analytics() {
           </div>
 
         </div>
-
-        {/* Distribution */}
 
         <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
 
@@ -206,62 +201,6 @@ export default function Analytics() {
           </div>
 
         </div>
-
-      </div>
-
-      {/* Table */}
-
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
-
-        <div className="flex items-center justify-between mb-4">
-
-          <h2 className="font-semibold text-neutral-800">
-            Top Processed Documents
-          </h2>
-
-          <button className="text-violet-600 text-sm">
-            View all
-          </button>
-
-        </div>
-
-        <table className="w-full text-sm">
-
-          <thead className="text-neutral-500 border-b">
-
-            <tr>
-              <th className="text-left py-3">Document</th>
-              <th className="text-left">Type</th>
-              <th className="text-left">Fields</th>
-              <th className="text-left">Accuracy</th>
-            </tr>
-
-          </thead>
-
-          <tbody className="divide-y text-neutral-700">
-
-            {[
-              ["Invoice_1023.pdf", "Invoice", "32", "98%"],
-              ["Receipt_443.pdf", "Receipt", "18", "96%"],
-              ["Contract_A1.pdf", "Contract", "54", "95%"],
-              ["Invoice_998.pdf", "Invoice", "30", "97%"]
-            ].map((row, i) => (
-
-              <tr key={i}>
-                <td className="py-3 flex items-center gap-2">
-                  <FileText size={16} className="text-violet-500" />
-                  {row[0]}
-                </td>
-                <td>{row[1]}</td>
-                <td>{row[2]}</td>
-                <td className="text-green-600">{row[3]}</td>
-              </tr>
-
-            ))}
-
-          </tbody>
-
-        </table>
 
       </div>
 

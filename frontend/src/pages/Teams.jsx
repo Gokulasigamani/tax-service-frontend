@@ -1,261 +1,226 @@
 import { useState } from "react"
 import {
-  Users,
   UserPlus,
-  Mail,
-  Crown,
-  ShieldCheck,
-  Eye,
-  X
+  Trash2,
+  Search
 } from "lucide-react"
 
 import Select from "../components/ui/Select"
 
-export default function Teams() {
+/* ---------- Metric Card (UNCHANGED) ---------- */
+
+function MetricCard({
+  title,
+  value,
+  change,
+  positive = true,
+  footer,
+  variant = "violet",
+  children
+}) {
+  const variants = {
+    violet: "from-violet-50/60 to-transparent",
+    blue: "from-blue-50/60 to-transparent",
+    emerald: "from-emerald-50/60 to-transparent"
+  }
+
+  return (
+    <div className="relative overflow-hidden bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
+      <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
+
+      <div className="relative">
+        <div className="flex justify-between text-sm text-neutral-500 mb-4">
+          {title}
+          <span>{footer}</span>
+        </div>
+
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="text-2xl font-semibold text-neutral-900">{value}</p>
+            <span className={`text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
+              {change}
+            </span>
+          </div>
+
+          <div className="flex items-end gap-[3px] h-10">
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ---------- Page ---------- */
+
+export default function TeamPage() {
+  const [search, setSearch] = useState("")
+  const [filter, setFilter] = useState("All")
+
   const [members, setMembers] = useState([
-    {
-      name: "Gokul",
-      email: "gokul@email.com",
-      role: "Admin",
-      status: "Active"
-    },
-    {
-      name: "Dharani",
-      email: "dharani@email.com",
-      role: "Editor",
-      status: "Active"
-    }
+    { name: "Gokul", role: "Admin", status: "Active" },
+    { name: "Rahul", role: "Editor", status: "Active" },
+    { name: "Priya", role: "Viewer", status: "Invited" }
   ])
 
-  const [showModal, setShowModal] = useState(false)
-  const [email, setEmail] = useState("")
-  const [role, setRole] = useState("Viewer")
-
   const roles = ["Admin", "Editor", "Viewer"]
+  const filters = ["All", "Admin", "Editor", "Viewer"]
 
-  const roleIcon = {
-    Admin: <Crown size={14} />,
-    Editor: <ShieldCheck size={14} />,
-    Viewer: <Eye size={14} />
-  }
-
-  const handleInvite = () => {
-    if (!email) return
-
-    const newMember = {
-      name: email.split("@")[0],
-      email,
-      role,
-      status: "Pending"
-    }
-
-    setMembers((prev) => [...prev, newMember])
-    setShowModal(false)
-    setEmail("")
-    setRole("Viewer")
-  }
+  const filteredMembers = members.filter((m) => {
+    const matchSearch = m.name.toLowerCase().includes(search.toLowerCase())
+    const matchFilter = filter === "All" || m.role === filter
+    return matchSearch && matchFilter
+  })
 
   return (
     <div className="space-y-6">
 
       {/* Header */}
 
-      <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm p-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold text-neutral-800">
+          Team Members
+        </h1>
 
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-50/70 to-transparent pointer-events-none" />
+        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm">
+          <UserPlus size={16} />
+          Invite Member
+        </button>
+      </div>
 
-        <div className="relative flex items-center justify-between">
+      {/* Metrics */}
 
-          <div className="flex items-center gap-4">
+      <div className="grid grid-cols-3 gap-6">
 
-            <div className="p-3 bg-violet-100 rounded-xl">
-              <Users size={22} className="text-violet-600" />
-            </div>
+        <MetricCard title="Total Members" value="12" change="+2" footer="All users" variant="violet">
+          {[6, 8, 10, 12, 14, 16, 18].map((h, i) => (
+            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-violet-400 rounded-sm" />
+          ))}
+        </MetricCard>
 
-            <div>
-              <h1 className="text-xl font-semibold text-neutral-800">
-                Team Workspace
-              </h1>
-              <p className="text-sm text-neutral-500">
-                Manage members, roles and collaboration access
-              </p>
-            </div>
+        <MetricCard title="Active Users" value="9" change="+1" footer="Online" variant="blue">
+          {[4, 6, 8, 10, 12, 14, 16].map((h, i) => (
+            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-blue-400 rounded-sm" />
+          ))}
+        </MetricCard>
 
-          </div>
+        <MetricCard title="Pending Invites" value="3" change="-1" positive={false} footer="Awaiting" variant="emerald">
+          <svg width="80" height="30">
+            <polyline fill="none" stroke="#10b981" strokeWidth="2"
+              points="0,25 10,22 20,21 30,18 40,16 50,14 60,10 70,7 80,5" />
+          </svg>
+        </MetricCard>
 
-          <button
-            onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm hover:bg-violet-700 transition shadow-sm"
-          >
-            <UserPlus size={16} />
-            Invite Member
-          </button>
+      </div>
 
+      {/* 🔥 Search + Filter */}
+
+      <div className="flex gap-3">
+
+        <div className="flex items-center gap-2 border border-neutral-200 rounded-lg px-3 py-2 w-64">
+          <Search size={16} className="text-neutral-400" />
+          <input
+            placeholder="Search members..."
+            className="outline-none text-sm w-full"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        <div className="w-40">
+          <Select value={filter} onChange={setFilter} options={filters} />
         </div>
 
       </div>
 
-      {/* Members */}
+      {/* Invite Section */}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 flex gap-3">
 
-        {members.map((user, i) => (
+        <input
+          placeholder="Enter email..."
+          className="flex-1 border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none"
+        />
 
-          <div
-            key={i}
-            className="bg-white border border-neutral-200 rounded-xl p-4 shadow-sm hover:shadow-md transition"
-          >
+        <Select value="Editor" onChange={() => {}} options={roles} />
 
-            <div className="flex items-center justify-between">
+        <button className="px-4 py-2 bg-violet-600 text-white rounded-lg text-sm">
+          Invite
+        </button>
 
-              {/* Left */}
+      </div>
 
-              <div className="flex items-center gap-4">
+      {/* Members Table */}
 
-                <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center text-violet-600 font-semibold">
-                  {user.name[0]}
-                </div>
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
 
-                <div>
-                  <p className="text-sm font-medium text-neutral-800">
-                    {user.name}
-                  </p>
+        <table className="w-full text-sm">
 
-                  <p className="text-xs text-neutral-500 flex items-center gap-1">
-                    <Mail size={12} />
-                    {user.email}
-                  </p>
-                </div>
+          <thead className="text-neutral-500 border-b">
+            <tr>
+              <th className="text-left py-3">Name</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
 
-              </div>
+          <tbody className="divide-y">
 
-              {/* Right */}
+            {filteredMembers.map((m, i) => (
 
-              <div className="flex items-center gap-3">
+              <tr key={i}>
 
-                <div className="flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-violet-100 text-violet-700">
-                  {roleIcon[user.role]}
-                  {user.role}
-                </div>
+                {/* Name + Avatar */}
+                <td className="py-3 flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-violet-400 text-white flex items-center justify-center text-xs">
+                    {m.name[0]}
+                  </div>
+                  {m.name}
+                </td>
 
-                <span
-                  className={`text-xs px-2 py-1 rounded-full ${
-                    user.status === "Active"
-                      ? "bg-green-100 text-green-600"
-                      : "bg-orange-100 text-orange-600"
-                  }`}
-                >
-                  {user.status}
-                </span>
-
-                <div className="w-28">
+                {/* Role Dropdown */}
+                <td>
                   <Select
-                    value={user.role}
-                    onChange={() => {}}
+                    value={m.role}
+                    onChange={(val) => {
+                      const updated = [...members]
+                      updated[i].role = val
+                      setMembers(updated)
+                    }}
                     options={roles}
                   />
-                </div>
+                </td>
 
-              </div>
+                {/* Status */}
+                <td>
+                  <span className={`flex items-center gap-2 text-xs ${
+                    m.status === "Active" ? "text-green-600" : "text-orange-500"
+                  }`}>
+                    <span className={`w-2 h-2 rounded-full ${
+                      m.status === "Active" ? "bg-green-500" : "bg-orange-400"
+                    }`} />
+                    {m.status}
+                  </span>
+                </td>
 
-            </div>
+                {/* Actions */}
+                <td>
+                  <button className="text-red-500 flex items-center gap-1 text-xs">
+                    <Trash2 size={14} />
+                    Remove
+                  </button>
+                </td>
 
-          </div>
+              </tr>
 
-        ))}
+            ))}
+
+          </tbody>
+
+        </table>
 
       </div>
-
-      {/* 🔥 Premium Modal */}
-
-      {showModal && (
-        <div className="fixed inset-0 z-50">
-
-          {/* Backdrop */}
-
-          <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-            onClick={() => setShowModal(false)}
-          />
-
-          {/* Modal */}
-
-          <div className="absolute inset-0 flex items-center justify-center p-4">
-
-            <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-neutral-200 p-6 space-y-5 animate-[fadeIn_0.2s_ease]">
-
-              {/* Header */}
-
-              <div className="flex items-center justify-between">
-
-                <h2 className="text-lg font-semibold text-neutral-800">
-                  Invite Team Member
-                </h2>
-
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="text-neutral-400 hover:text-neutral-600"
-                >
-                  <X size={18} />
-                </button>
-
-              </div>
-
-              {/* Email */}
-
-              <div>
-                <p className="text-xs text-neutral-500 mb-1">
-                  Email Address
-                </p>
-
-                <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@company.com"
-                  className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100 transition"
-                />
-              </div>
-
-              {/* Role */}
-
-              <div>
-                <p className="text-xs text-neutral-500 mb-1">
-                  Role
-                </p>
-
-                <Select
-                  value={role}
-                  onChange={setRole}
-                  options={roles}
-                />
-              </div>
-
-              {/* Actions */}
-
-              <div className="flex justify-end gap-3 pt-2">
-
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="px-4 py-2 text-sm border border-neutral-200 rounded-lg hover:bg-neutral-50 transition"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  onClick={handleInvite}
-                  className="px-4 py-2 text-sm bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition shadow-sm"
-                >
-                  Send Invite
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      )}
 
     </div>
   )

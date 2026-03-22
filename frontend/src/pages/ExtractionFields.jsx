@@ -1,48 +1,68 @@
 import { useState } from "react"
 import {
-  Plus,
-  Trash2,
-  Sparkles
+  Sparkles,
+  Search,
+  TrendingUp
 } from "lucide-react"
-import Select from "../components/ui/Select.jsx"
 
-export default function ExtractionFields() {
-  const [fields, setFields] = useState([
+/* ---------- Metric Card (UNCHANGED BASE) ---------- */
+
+function MetricCard({ title, value, footer, variant = "violet" }) {
+  const variants = {
+    violet: "from-violet-50/60 to-transparent",
+    blue: "from-blue-50/60 to-transparent",
+    emerald: "from-emerald-50/60 to-transparent"
+  }
+
+  return (
+    <div className="relative bg-white p-5 rounded-xl border border-neutral-200 shadow-sm">
+      <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]}`} />
+      <div className="relative">
+        <p className="text-sm text-neutral-500 mb-3">{title}</p>
+        <p className="text-2xl font-semibold text-neutral-900">{value}</p>
+        <span className="text-xs text-neutral-400">{footer}</span>
+      </div>
+    </div>
+  )
+}
+
+/* ---------- Page ---------- */
+
+export default function ProjectsPage() {
+  const [search, setSearch] = useState("")
+  const [filter, setFilter] = useState("All")
+
+  const filters = ["All", "Active", "Completed"]
+
+  const projects = [
     {
-      name: "Invoice Number",
-      type: "text",
-      instruction: "Extract invoice number",
-      required: true
+      name: "Product Launch",
+      docs: 12,
+      status: "Active",
+      progress: 70,
+      priority: "High"
     },
     {
-      name: "Total Amount",
-      type: "number",
-      instruction: "Extract total payable amount",
-      required: true
+      name: "HR Policies",
+      docs: 8,
+      status: "Completed",
+      progress: 100,
+      priority: "Low"
+    },
+    {
+      name: "Support SOP",
+      docs: 5,
+      status: "Active",
+      progress: 45,
+      priority: "Medium"
     }
-  ])
+  ]
 
-  const addField = () => {
-    setFields([
-      ...fields,
-      {
-        name: "",
-        type: "text",
-        instruction: "",
-        required: false
-      }
-    ])
-  }
-
-  const removeField = (index) => {
-    setFields(fields.filter((_, i) => i !== index))
-  }
-
-  const updateField = (index, key, value) => {
-    const updated = [...fields]
-    updated[index][key] = value
-    setFields(updated)
-  }
+  const filteredProjects = projects.filter((p) => {
+    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase())
+    const matchFilter = filter === "All" || p.status === filter
+    return matchSearch && matchFilter
+  })
 
   return (
     <div className="space-y-6">
@@ -51,155 +71,192 @@ export default function ExtractionFields() {
 
       <div className="flex items-center justify-between">
 
-        <h1 className="text-2xl font-semibold text-neutral-800">
-          Extraction Fields
-        </h1>
+        <div>
+          <h1 className="text-2xl font-semibold text-neutral-800">
+            Projects
+          </h1>
+          <p className="text-xs text-neutral-500 mt-1">
+            Manage and track your team projects
+          </p>
+        </div>
 
-        <button
-          onClick={addField}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 text-white text-sm shadow-sm hover:bg-violet-700 transition"
-        >
-          <Plus size={16} />
-          Add Field
+        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm">
+          <Sparkles size={16} />
+          Create Project
         </button>
 
       </div>
 
-      {/* Info Card */}
+      {/* Metrics */}
 
-      <div className="relative bg-white rounded-xl border border-neutral-200 shadow-sm p-5 overflow-hidden">
+      <div className="grid grid-cols-3 gap-6">
 
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-50/60 to-transparent pointer-events-none" />
-
-        <p className="relative text-sm text-neutral-600 leading-relaxed">
-          Define the fields you want to extract from documents. These fields guide
-          the AI to structure accurate outputs and improve extraction quality.
-        </p>
+        <MetricCard title="Total Projects" value="18" footer="All" variant="violet" />
+        <MetricCard title="Active Projects" value="12" footer="Ongoing" variant="blue" />
+        <MetricCard title="Team Members" value="32" footer="Across teams" variant="emerald" />
 
       </div>
 
-      {/* Fields */}
+      {/* Search + Filter */}
 
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-6">
+      <div className="flex gap-3">
 
-        {fields.map((field, index) => (
-          <div
-            key={index}
-            className="border border-neutral-200 rounded-xl p-4 space-y-4 hover:border-neutral-300 transition"
-          >
+        <div className="flex items-center gap-2 border border-neutral-200 rounded-lg px-3 py-2 w-64 bg-white shadow-sm">
+          <Search size={16} className="text-neutral-400" />
+          <input
+            placeholder="Search projects..."
+            className="outline-none text-sm w-full"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
 
-            {/* Top Row */}
+        <div className="flex gap-2 bg-white border border-neutral-200 rounded-xl p-1 shadow-sm">
 
-            <div className="grid grid-cols-3 gap-4">
-
-              {/* Name */}
-
-              <div>
-                <p className="text-xs text-neutral-500 mb-1">
-                  Field Name
-                </p>
-
-                <input
-                  value={field.name}
-                  onChange={(e) =>
-                    updateField(index, "name", e.target.value)
-                  }
-                  placeholder="e.g. Invoice Number"
-                  className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm
-                  outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-100"
-                />
-              </div>
-
-              {/* Type (Premium Select) */}
-
-              <div>
-                <p className="text-xs text-neutral-500 mb-1">
-                  Field Type
-                </p>
-
-                <Select
-                  value={field.type}
-                  onChange={(val) =>
-                    updateField(index, "type", val)
-                  }
-                  options={["text", "number", "date", "currency"]}
-                />
-              </div>
-
-              {/* Required + Delete */}
-
-              <div className="flex items-end justify-between">
-
-                {/* Premium Checkbox */}
-
-                <label className="flex items-center gap-2 text-sm text-neutral-600 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    checked={field.required}
-                    onChange={(e) =>
-                      updateField(index, "required", e.target.checked)
-                    }
-                    className="w-4 h-4 accent-violet-600 cursor-pointer"
-                  />
-
-                  Required
-
-                </label>
-
-                <button
-                  onClick={() => removeField(index)}
-                  className="p-2 hover:bg-neutral-100 rounded-md transition"
-                >
-                  <Trash2 size={16} className="text-neutral-500" />
-                </button>
-
-              </div>
-
-            </div>
-
-            {/* Instruction */}
-
-            <div>
-              <p className="text-xs text-neutral-500 mb-1">
-                AI Instruction
-              </p>
-
-              <textarea
-                value={field.instruction}
-                onChange={(e) =>
-                  updateField(index, "instruction", e.target.value)
-                }
-                placeholder="Explain how AI should extract this field..."
-                className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm
-                outline-none resize-none h-20
-                focus:border-violet-500 focus:ring-1 focus:ring-violet-100"
-              />
-            </div>
-
-          </div>
-        ))}
-
-      </div>
-
-      {/* AI Assist */}
-
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
-
-        <div className="flex items-center gap-2 font-semibold text-neutral-800">
-
-          <Sparkles size={18} className="text-violet-600" />
-
-          AI Assist
+          {filters.map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-3 py-1 text-xs rounded-lg transition ${
+                filter === f
+                  ? "bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white"
+                  : "text-neutral-600 hover:bg-neutral-100"
+              }`}
+            >
+              {f}
+            </button>
+          ))}
 
         </div>
 
-        <div className="bg-neutral-50 rounded-lg p-4 text-sm text-neutral-600 leading-relaxed">
+      </div>
 
-          You can define intelligent extraction rules such as:
-          <br />• Extract values near keywords  
-          <br />• Identify totals from tables  
-          <br />• Detect structured sections automatically  
+      {/* Main Grid */}
+
+      <div className="grid grid-cols-3 gap-6">
+
+        {/* Projects */}
+
+        <div className="col-span-2 grid grid-cols-2 gap-6">
+
+          {filteredProjects.map((project, i) => (
+
+            <div
+              key={i}
+              className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 transition hover:shadow-md"
+            >
+
+              {/* Header */}
+              <div className="flex justify-between items-center mb-3">
+
+                <h2 className="font-semibold text-neutral-800">
+                  {project.name}
+                </h2>
+
+                <div className="flex items-center gap-2">
+
+                  {/* Status */}
+                  <span className={`text-xs px-2 py-1 rounded-md ${
+                    project.status === "Active"
+                      ? "bg-green-100 text-green-600"
+                      : "bg-neutral-100 text-neutral-500"
+                  }`}>
+                    {project.status}
+                  </span>
+
+                  {/* Priority */}
+                  <span className={`text-xs px-2 py-1 rounded-md ${
+                    project.priority === "High"
+                      ? "bg-red-100 text-red-500"
+                      : project.priority === "Medium"
+                      ? "bg-yellow-100 text-yellow-600"
+                      : "bg-neutral-100 text-neutral-500"
+                  }`}>
+                    {project.priority}
+                  </span>
+
+                </div>
+
+              </div>
+
+              {/* Docs + Activity */}
+              <div className="flex justify-between text-xs text-neutral-500 mb-3">
+                <span>{project.docs} docs</span>
+                <span className="flex items-center gap-1 text-green-600">
+                  ● Active now
+                </span>
+              </div>
+
+              {/* Progress */}
+              <div className="mb-4">
+
+                <div className="flex justify-between text-xs text-neutral-500 mb-1">
+                  <span>Progress</span>
+                  <span>{project.progress}%</span>
+                </div>
+
+                <div className="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-violet-500 to-blue-500"
+                    style={{ width: `${project.progress}%` }}
+                  />
+                </div>
+
+              </div>
+
+              {/* Health Score */}
+              <div className="text-xs text-neutral-500 mb-4 flex items-center gap-2">
+                <TrendingUp size={12} className="text-violet-600" />
+                Project Health: Good
+              </div>
+
+              {/* Members */}
+              <div className="flex items-center justify-between mb-4">
+
+                <div className="flex -space-x-2">
+                  <div className="w-7 h-7 bg-violet-400 rounded-full" />
+                  <div className="w-7 h-7 bg-blue-400 rounded-full" />
+                  <div className="w-7 h-7 bg-emerald-400 rounded-full" />
+                  <div className="w-7 h-7 bg-neutral-300 rounded-full flex items-center justify-center text-xs">
+                    +2
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Actions */}
+              <div className="flex justify-between text-xs text-neutral-600">
+                <button className="hover:text-black">Open</button>
+                <button className="hover:text-black">Add Doc</button>
+                <button className="text-violet-600">AI Plan</button>
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+        {/* AI Insights */}
+
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
+
+          <div className="flex items-center gap-2 font-semibold text-neutral-800">
+            <Sparkles size={16} className="text-violet-600" />
+            Smart Insights
+          </div>
+
+          <div className="bg-violet-50 p-3 rounded-lg text-sm">
+            Projects below 50% progress need immediate attention
+          </div>
+
+          <div className="bg-blue-50 p-3 rounded-lg text-sm">
+            Teams with 3+ members complete tasks faster
+          </div>
+
+          <div className="bg-emerald-50 p-3 rounded-lg text-sm">
+            AI-generated documents improved efficiency by 28%
+          </div>
 
         </div>
 

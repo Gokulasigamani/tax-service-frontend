@@ -3,8 +3,12 @@ import {
   UploadCloud,
   FileText,
   Trash2,
-  Sparkles
+  Sparkles,
+  Star,
+  Search
 } from "lucide-react"
+
+/* ---------- Metric Card ---------- */
 
 function MetricCard({
   title,
@@ -24,10 +28,7 @@ function MetricCard({
   return (
     <div className="relative overflow-hidden bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
 
-      {/* Gradient */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`}
-      />
+      <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
 
       <div className="relative">
 
@@ -42,11 +43,7 @@ function MetricCard({
             <p className="text-2xl font-semibold text-neutral-900">
               {value}
             </p>
-            <span
-              className={`text-sm ${
-                positive ? "text-green-600" : "text-red-500"
-              }`}
-            >
+            <span className={`text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
               {change}
             </span>
           </div>
@@ -62,22 +59,41 @@ function MetricCard({
   )
 }
 
-export default function UploadDocuments() {
-  const [files, setFiles] = useState([])
+/* ---------- Page ---------- */
 
-  const handleFiles = (selectedFiles) => {
-    const newFiles = Array.from(selectedFiles)
-    setFiles((prev) => [...prev, ...newFiles])
+export default function WorkspaceDocuments() {
+  const [docs, setDocs] = useState([])
+  const [search, setSearch] = useState("")
+  const [activeTab, setActiveTab] = useState("All")
+
+  const tabs = ["All", "AI", "Draft", "Review"]
+
+  const handleDocs = (files) => {
+    const newDocs = Array.from(files).map((file) => ({
+      file,
+      status: "Draft",
+      tag: "AI",
+      edited: "Just now",
+      starred: false,
+      collaborators: ["violet", "blue"]
+    }))
+    setDocs((prev) => [...prev, ...newDocs])
   }
 
-  const handleDrop = (e) => {
-    e.preventDefault()
-    handleFiles(e.dataTransfer.files)
+  const toggleStar = (index) => {
+    const updated = [...docs]
+    updated[index].starred = !updated[index].starred
+    setDocs(updated)
   }
 
-  const handleRemove = (index) => {
-    setFiles(files.filter((_, i) => i !== index))
-  }
+  const filteredDocs = docs.filter((d) => {
+    const matchSearch = d.file.name.toLowerCase().includes(search.toLowerCase())
+    const matchTab =
+      activeTab === "All" ||
+      d.tag === activeTab ||
+      d.status === activeTab
+    return matchSearch && matchTab
+  })
 
   return (
     <div className="space-y-6">
@@ -86,189 +102,115 @@ export default function UploadDocuments() {
 
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-neutral-800">
-          Upload Documents
+          Workspace
         </h1>
 
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm hover:bg-violet-700 transition">
+        <button className="flex items-center gap-2 px-4 py-2 rounded-lg
+          bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23]
+          text-white text-sm shadow-sm">
           <Sparkles size={16} />
-          Run Extraction
+          Create Document
         </button>
       </div>
 
-      {/* Metric Cards */}
+      {/* Metrics */}
 
       <div className="grid grid-cols-3 gap-6">
 
-        <MetricCard
-          title="Files Uploaded"
-          value={files.length}
-          change="+12%"
-          positive={true}
-          footer="Session"
-          variant="violet"
-        >
+        <MetricCard title="Total Documents" value={docs.length} change="+14%" footer="Workspace">
           {[6, 10, 14, 8, 16, 12, 18].map((h, i) => (
-            <div
-              key={i}
-              style={{ height: `${h}px` }}
-              className="w-[4px] bg-violet-400 rounded-sm"
-            />
+            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-violet-400 rounded-sm" />
           ))}
         </MetricCard>
 
-        <MetricCard
-          title="Processing Runs"
-          value="842"
-          change="-2.1%"
-          positive={false}
-          footer="Last 7 days"
-          variant="blue"
-        >
+        <MetricCard title="Collaborations" value="128" change="+9%" footer="Last 7 days" variant="blue">
           {[14, 16, 12, 10, 9, 8, 7].map((h, i) => (
-            <div
-              key={i}
-              style={{ height: `${h}px` }}
-              className="w-[4px] bg-blue-400 rounded-sm"
-            />
+            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-blue-400 rounded-sm" />
           ))}
         </MetricCard>
 
-        <MetricCard
-          title="Total Fields Extracted"
-          value="68,674"
-          change="+4.1%"
-          positive={true}
-          footer="All time"
-          variant="emerald"
-        >
+        <MetricCard title="AI Docs" value="742" change="+21%" footer="All time" variant="emerald">
           <svg width="80" height="30">
-            <polyline
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="2"
-              points="0,25 10,22 20,21 30,18 40,16 50,14 60,10 70,7 80,5"
-            />
+            <polyline fill="none" stroke="#10b981" strokeWidth="2"
+              points="0,25 10,22 20,21 30,18 40,16 50,14 60,10 70,7 80,5" />
           </svg>
         </MetricCard>
 
       </div>
 
-      {/* Upload + Config */}
+      {/* 🔍 Search */}
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="flex items-center gap-3">
 
-        {/* Upload Area */}
-
-        <div
-          onDrop={handleDrop}
-          onDragOver={(e) => e.preventDefault()}
-          className="col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-6 flex flex-col items-center justify-center text-center hover:border-violet-300 transition"
-        >
-
-          <div className="p-3 bg-violet-100 rounded-xl mb-4">
-            <UploadCloud size={24} className="text-violet-600" />
-          </div>
-
-          <p className="text-sm font-medium text-neutral-800">
-            Drag & drop documents here
-          </p>
-
-          <p className="text-xs text-neutral-500 mt-1">
-            or click to upload from your system
-          </p>
-
+        <div className="flex items-center gap-2 border border-neutral-200 rounded-lg px-3 py-2 w-64 bg-white">
+          <Search size={16} className="text-neutral-400" />
           <input
-            type="file"
-            multiple
-            id="fileUpload"
-            className="hidden"
-            onChange={(e) => handleFiles(e.target.files)}
+            placeholder="Search documents..."
+            className="outline-none text-sm w-full"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
-
-          <label
-            htmlFor="fileUpload"
-            className="mt-4 px-4 py-2 text-sm font-medium rounded-lg
-            bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white hover:bg-violet-700 transition cursor-pointer"
-          >
-            Select Files
-          </label>
-
-        </div>
-
-        {/* Config */}
-
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
-
-          <h2 className="font-semibold text-neutral-800">
-            Configuration
-          </h2>
-
-          <div>
-            <p className="text-xs text-neutral-500 mb-1">
-              Document Type
-            </p>
-            <select className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none">
-              <option>Invoice</option>
-              <option>Contract</option>
-              <option>Receipt</option>
-              <option>KYC</option>
-            </select>
-          </div>
-
-          <div>
-            <p className="text-xs text-neutral-500 mb-1">
-              Extraction Template
-            </p>
-            <select className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none">
-              <option>Default Template</option>
-              <option>Finance Template</option>
-              <option>Custom Template</option>
-            </select>
-          </div>
-
-          <div>
-            <p className="text-xs text-neutral-500 mb-1">
-              AI Instructions
-            </p>
-            <textarea
-              placeholder="Define extraction rules..."
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none resize-none h-20"
-            />
-          </div>
-
         </div>
 
       </div>
 
-      {/* Files */}
+      {/* 🔥 Premium Tabs */}
+
+      <div className="bg-white border border-neutral-200 rounded-xl p-2 flex gap-2 w-fit shadow-sm">
+
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-4 py-1.5 text-xs font-medium rounded-lg transition-all
+              ${
+                activeTab === tab
+                  ? "bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white shadow-sm"
+                  : "text-neutral-600 hover:bg-neutral-100"
+              }`}
+          >
+            {tab}
+          </button>
+        ))}
+
+      </div>
+
+      {/* Upload */}
+
+      <div
+        onDrop={(e) => {
+          e.preventDefault()
+          handleDocs(e.dataTransfer.files)
+        }}
+        onDragOver={(e) => e.preventDefault()}
+        className="bg-white rounded-xl border border-neutral-200 p-6 text-center"
+      >
+        <UploadCloud size={24} className="mx-auto text-violet-600 mb-2" />
+        <p className="text-sm text-neutral-700">
+          Drag files or upload documents
+        </p>
+      </div>
+
+      {/* Documents */}
 
       <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
 
-        <div className="flex items-center justify-between mb-4">
-
-          <h2 className="font-semibold text-neutral-800">
-            Uploaded Files
-          </h2>
-
-          <span className="text-sm text-neutral-500">
-            {files.length} files
-          </span>
-
-        </div>
-
-        {files.length === 0 ? (
-          <p className="text-sm text-neutral-500">
-            No files uploaded yet
-          </p>
+        {filteredDocs.length === 0 ? (
+          <div className="text-center py-10 text-neutral-500 text-sm">
+            No documents available
+            <div className="text-violet-600 mt-2 cursor-pointer text-sm">
+              Create a document using AI
+            </div>
+          </div>
         ) : (
+
           <div className="divide-y">
 
-            {files.map((file, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between py-3"
-              >
+            {filteredDocs.map((doc, i) => (
 
+              <div key={i} className="flex items-center justify-between py-3 group">
+
+                {/* Left */}
                 <div className="flex items-center gap-3">
 
                   <div className="p-2 bg-violet-100 rounded-lg">
@@ -276,27 +218,66 @@ export default function UploadDocuments() {
                   </div>
 
                   <div>
-                    <p className="text-sm font-medium">
-                      {file.name}
+                    <p className="text-sm font-medium text-neutral-800">
+                      {doc.file.name}
                     </p>
-                    <p className="text-xs text-neutral-500">
-                      {(file.size / 1024).toFixed(1)} KB
-                    </p>
+
+                    <div className="flex items-center gap-2 text-xs text-neutral-500 mt-1">
+                      <span>{doc.edited}</span>
+
+                      <span className="px-2 py-0.5 bg-violet-100 text-violet-600 rounded-md">
+                        {doc.tag}
+                      </span>
+
+                      <span className="px-2 py-0.5 bg-blue-100 text-blue-600 rounded-md">
+                        {doc.status}
+                      </span>
+                    </div>
                   </div>
 
                 </div>
 
-                <button
-                  onClick={() => handleRemove(index)}
-                  className="p-2 hover:bg-neutral-100 rounded-md"
-                >
-                  <Trash2 size={16} className="text-neutral-500" />
-                </button>
+                {/* Right */}
+                <div className="flex items-center gap-4">
+
+                  {/* Star */}
+                  <button onClick={() => toggleStar(i)}>
+                    <Star
+                      size={16}
+                      className={
+                        doc.starred
+                          ? "text-yellow-400 fill-yellow-400"
+                          : "text-neutral-400"
+                      }
+                    />
+                  </button>
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition">
+                    <button className="text-xs text-neutral-600 hover:text-black">
+                      Open
+                    </button>
+                    <button className="text-xs text-neutral-600 hover:text-black">
+                      AI
+                    </button>
+                  </div>
+
+                  {/* Delete */}
+                  <button
+                    onClick={() => setDocs(docs.filter((_, idx) => idx !== i))}
+                    className="p-2 hover:bg-neutral-100 rounded-md"
+                  >
+                    <Trash2 size={16} className="text-neutral-500" />
+                  </button>
+
+                </div>
 
               </div>
+
             ))}
 
           </div>
+
         )}
 
       </div>
