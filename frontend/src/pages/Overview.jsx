@@ -12,7 +12,9 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   AreaChart,
-  Area
+  Area,
+  LineChart,
+  Line,
 } from "recharts"
 
 // Data for charts
@@ -174,22 +176,22 @@ export default function Overview() {
 
       </div>
 
-<<<<<<< HEAD
-      {/* Bottom Section */}
+
+      {/* Recent Documents & AI Copilot */}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
 
-        <div className="md:col-span-2 bg-white rounded-xl border p-4 sm:p-5">
-          <h2 className="font-semibold mb-4 text-sm sm:text-base">
+        <div className="md:col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
+          <h2 className="font-semibold mb-4 text-sm sm:text-base text-neutral-800">
             Recent Documents
           </h2>
 
-          <div className="divide-y">
+          <div className="divide-y divide-neutral-100">
             {["Project Plan", "Meeting Notes", "AI SOP Document"].map((doc, i) => (
               <div key={i} className="py-3 flex justify-between items-center">
                 <div className="flex gap-3 items-center">
                   <FileText size={16} className="text-violet-600" />
-                  <span className="text-sm">{doc}</span>
+                  <span className="text-sm text-neutral-700">{doc}</span>
                 </div>
                 <span className="text-xs text-neutral-400">Today</span>
               </div>
@@ -197,46 +199,99 @@ export default function Overview() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border p-4 sm:p-5 space-y-4">
-          <div className="flex items-center gap-2 font-semibold text-sm sm:text-base">
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
+          <div className="flex items-center gap-2 font-semibold text-neutral-800 text-sm sm:text-base">
             <Brain size={18} />
             AI Copilot
           </div>
 
-          <div className="bg-neutral-50 p-3 rounded-lg text-xs sm:text-sm">
+          <div className="bg-violet-50/50 p-3 rounded-lg text-xs sm:text-sm text-neutral-700">
             Generate a new document using AI or templates.
           </div>
 
-          <div className="border rounded-lg flex px-3 py-2">
+          <div className="border border-neutral-200 rounded-lg flex px-3 py-2 focus-within:border-violet-500 transition">
             <input
-              className="flex-1 outline-none text-sm"
-              placeholder="Ask AI to create or summarize..."
+              className="flex-1 outline-none text-sm bg-transparent"
+              placeholder="Ask AI..."
             />
             <Sparkles size={16} className="text-violet-600" />
           </div>
         </div>
-=======
-      {/* 🔥 NEW SECTION: ACTIVITY INSIGHTS */}
 
-     {/* 🔥 NEW SECTION: ACTIVITY INSIGHTS */}
+      </div>
 
-<div className="grid grid-cols-3 gap-6">
+      {/* System Activity Insights */}
 
-  {/* Chart */}
-  <div className="col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
 
-    <div className="flex justify-between items-center mb-4">
-      <h2 className="font-semibold text-neutral-800">
-        System Activity Insights
-      </h2>
-      <span className="text-sm text-neutral-400">Last 7 days</span>
-    </div>
+        <div className="md:col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
 
-    <div className="h-[260px]">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="font-semibold text-neutral-800 text-sm sm:text-base">
+              System Activity Insights
+            </h2>
+            <span className="text-xs sm:text-sm text-neutral-400">Last 7 days</span>
+          </div>
 
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={activityData}>
->>>>>>> 60f6aa940b3e82866fa24214d11afe2837600d53
+          <div className="h-[220px] sm:h-[260px]">
+
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={activityData}>
+                <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
+                <XAxis dataKey="name" stroke="#999" fontSize={12} />
+                <YAxis stroke="#999" fontSize={12} />
+                <Tooltip
+                  contentStyle={{
+                    background: "#fff",
+                    border: "1px solid #eee",
+                    borderRadius: "8px",
+                    fontSize: "12px"
+                  }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="logins"
+                  stroke="#6366f1"
+                  strokeWidth={2}
+                  dot={false}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="tasks"
+                  stroke="#10b981"
+                  strokeWidth={2}
+                  dot={false}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="errors"
+                  stroke="#f59e0b"
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+
+          </div>
+
+        </div>
+
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-3 sm:space-y-4">
+          <h3 className="font-semibold text-neutral-800 text-sm sm:text-base">
+            Detailed Activity
+          </h3>
+          <div className="bg-indigo-50 rounded-lg p-3 text-xs sm:text-sm text-neutral-700">
+            Peak logins reached 300 on Sunday.
+          </div>
+          <div className="bg-emerald-50 rounded-lg p-3 text-xs sm:text-sm text-neutral-700">
+            Task completion increased by 20%.
+          </div>
+          <div className="bg-amber-50 rounded-lg p-3 text-xs sm:text-sm text-neutral-700">
+            Error rate dropped significantly this week.
+          </div>
+        </div>
+
+      </div>
 
           <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
 
