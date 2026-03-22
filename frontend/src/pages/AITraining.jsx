@@ -9,7 +9,7 @@ import {
 
 import Select from "../components/ui/Select"
 
-/* ---------- Metric Card (EXACT) ---------- */
+/* ---------- Metric Card ---------- */
 
 function MetricCard({
   title,
@@ -27,35 +27,30 @@ function MetricCard({
   }
 
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
+    <div className="relative overflow-hidden bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 min-h-[120px]">
 
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`}
-      />
+      <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
 
       <div className="relative">
 
-        <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
-          {title}
-          <span>{footer}</span>
+        <div className="flex justify-between text-xs sm:text-sm text-neutral-500 mb-3 sm:mb-4">
+          <span className="truncate">{title}</span>
+          <span className="text-[10px] sm:text-xs">{footer}</span>
         </div>
 
         <div className="flex items-end justify-between">
 
           <div>
-            <p className="text-2xl font-semibold text-neutral-900">
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-900">
               {value}
             </p>
-            <span
-              className={`text-sm ${
-                positive ? "text-green-600" : "text-red-500"
-              }`}
-            >
+
+            <span className={`text-xs sm:text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
               {change}
             </span>
           </div>
 
-          <div className="flex items-end gap-[3px] h-10">
+          <div className="flex items-end gap-[2px] sm:gap-[3px] h-8 sm:h-10">
             {children}
           </div>
 
@@ -82,19 +77,19 @@ export default function AITraining() {
 
       {/* Header */}
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-        <h1 className="text-2xl font-semibold text-neutral-800">
+        <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">
           AI Training
         </h1>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
 
-          <div className="w-48">
+          <div className="w-full sm:w-48">
             <Select value={dataset} onChange={setDataset} options={datasets} />
           </div>
 
-          <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm">
+          <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm">
             <Sparkles size={16} />
             Train Model
           </button>
@@ -103,49 +98,33 @@ export default function AITraining() {
 
       </div>
 
-      {/* 🔥 EXACT METRIC DESIGN */}
+      {/* Dataset Info */}
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="flex flex-wrap gap-4 text-xs text-neutral-500">
+        <span>Dataset size: 12,842 docs</span>
+        <span>Last trained: 2 hours ago</span>
+        <span>Model version: v2.1</span>
+      </div>
 
-        <MetricCard
-          title="Model Accuracy"
-          value="96.8%"
-          change="+2.3%"
-          positive
-          footer="Last 7 days"
-          variant="violet"
-        >
+      {/* Metrics */}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+
+        <MetricCard title="Model Accuracy" value="96.8%" change="+2.3%" footer="Last 7 days">
           {[6, 10, 14, 12, 16, 18, 20].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-violet-400 rounded-sm" />
+            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-violet-400 rounded-sm" />
           ))}
         </MetricCard>
 
-        <MetricCard
-          title="Documents Trained"
-          value="3,421"
-          change="+8.1%"
-          positive
-          footer="All time"
-          variant="blue"
-        >
+        <MetricCard title="Documents Trained" value="3,421" change="+8.1%" footer="All time" variant="blue">
           {[8, 9, 10, 12, 14, 15, 16].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[4px] bg-blue-400 rounded-sm" />
+            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-blue-400 rounded-sm" />
           ))}
         </MetricCard>
 
-        <MetricCard
-          title="Pending Feedback"
-          value="128"
-          change="-3.2%"
-          positive={false}
-          footer="Needs review"
-          variant="emerald"
-        >
+        <MetricCard title="Pending Feedback" value="128" change="-3.2%" positive={false} footer="Needs review" variant="emerald">
           <svg width="80" height="30">
-            <polyline
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="2"
+            <polyline fill="none" stroke="#10b981" strokeWidth="2"
               points="0,25 10,22 20,21 30,18 40,16 50,14 60,10 70,7 80,5"
             />
           </svg>
@@ -153,11 +132,28 @@ export default function AITraining() {
 
       </div>
 
-      {/* Rest of your page remains SAME */}
+      {/* Training Progress */}
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5 space-y-4">
+        <div className="flex justify-between text-sm mb-2">
+          <span className="text-neutral-600">Training Progress</span>
+          <span className="text-neutral-800 font-medium">72%</span>
+        </div>
+
+        <div className="h-2 bg-neutral-100 rounded-full overflow-hidden">
+          <div className="h-full bg-gradient-to-r from-violet-500 to-blue-500 w-[72%]" />
+        </div>
+
+      </div>
+
+      {/* Main Section */}
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+
+        {/* Feedback */}
+
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
 
           <div className="flex items-center gap-2 font-semibold">
             <Brain size={18} />
@@ -165,7 +161,7 @@ export default function AITraining() {
           </div>
 
           {[1, 2, 3, 4].map((_, i) => (
-            <div key={i} className="p-3 border border-neutral-200 rounded-lg space-y-1">
+            <div key={i} className="p-3 border border-neutral-200 rounded-lg space-y-2">
 
               <p className="text-sm font-medium">
                 Invoice #{i + 1001}
@@ -175,7 +171,7 @@ export default function AITraining() {
                 Field mismatch detected
               </p>
 
-              <div className="flex gap-3 pt-2">
+              <div className="flex gap-3">
 
                 <button className="flex items-center gap-1 text-green-600 text-xs">
                   <CheckCircle2 size={14} />
@@ -194,15 +190,19 @@ export default function AITraining() {
 
         </div>
 
-        <div className="col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
+        {/* Insights */}
+
+        <div className="lg:col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
+
           <div className="flex items-center gap-2 font-semibold mb-4">
             <BarChart3 size={18} />
             Training Insights
           </div>
 
-          <div className="h-52 bg-neutral-100 rounded-lg flex items-center justify-center text-neutral-400 text-sm">
+          <div className="h-52 sm:h-64 bg-neutral-100 rounded-lg flex items-center justify-center text-neutral-400 text-sm">
             Accuracy Trend Chart
           </div>
+
         </div>
 
       </div>
