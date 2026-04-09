@@ -45,11 +45,11 @@ export default function Overview() {
       {/* Header */}
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">
+        <h1 className="text-xl sm:text-2xl font-semibold text-text-main">
           Overview
         </h1>
 
-        <button className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white text-sm shadow-sm hover:opacity-90 transition w-full sm:w-auto">
+        <button className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2 rounded-lg text-white text-sm shadow-sm hover:opacity-90 transition w-full sm:w-auto" style={{ backgroundColor: 'var(--color-primary)' }}>
           <Sparkles size={16} />
           Create
         </button>
@@ -62,46 +62,46 @@ export default function Overview() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
 
         {/* Card 1 */}
-        <div className="relative bg-white p-4 sm:p-5 rounded-xl border border-neutral-200 shadow-sm">
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-50/60 to-transparent pointer-events-none" />
+        <div className="relative bg-surface p-4 sm:p-5 rounded-xl border border-border shadow-sm overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom right, color-mix(in srgb, var(--color-primary) 15%, transparent), transparent)' }} />
           <div className="relative">
-            <div className="flex justify-between text-xs sm:text-sm text-neutral-500 mb-3 sm:mb-4">
+            <div className="flex justify-between text-xs sm:text-sm text-text-main/70 mb-3 sm:mb-4">
               Total Documents
               <span>Last 7 days</span>
             </div>
             <div>
               <p className="text-xl sm:text-2xl font-semibold">2,184</p>
-              <span className="text-green-600 text-xs sm:text-sm">+14.2%</span>
+              <span className="text-green-500 text-xs sm:text-sm">+14.2%</span>
             </div>
           </div>
         </div>
 
         {/* Card 2 */}
-        <div className="relative bg-white p-4 sm:p-5 rounded-xl border border-neutral-200 shadow-sm">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 to-transparent pointer-events-none" />
+        <div className="relative bg-surface p-4 sm:p-5 rounded-xl border border-border shadow-sm overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent pointer-events-none" />
           <div className="relative">
-            <div className="flex justify-between text-xs sm:text-sm text-neutral-500 mb-3 sm:mb-4">
+            <div className="flex justify-between text-xs sm:text-sm text-text-main/70 mb-3 sm:mb-4">
               Active Collaborations
               <span>Last 7 days</span>
             </div>
             <div>
               <p className="text-xl sm:text-2xl font-semibold">128</p>
-              <span className="text-green-600 text-xs sm:text-sm">+9.3%</span>
+              <span className="text-green-500 text-xs sm:text-sm">+9.3%</span>
             </div>
           </div>
         </div>
 
         {/* Card 3 */}
-        <div className="relative bg-white p-4 sm:p-5 rounded-xl border border-neutral-200 shadow-sm">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/60 to-transparent pointer-events-none" />
+        <div className="relative bg-surface p-4 sm:p-5 rounded-xl border border-border shadow-sm overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent pointer-events-none" />
           <div className="relative">
-            <div className="flex justify-between text-xs sm:text-sm text-neutral-500 mb-3 sm:mb-4">
+            <div className="flex justify-between text-xs sm:text-sm text-text-main/70 mb-3 sm:mb-4">
               AI Generated Content
               <span>All time</span>
             </div>
             <div>
               <p className="text-xl sm:text-2xl font-semibold">742</p>
-              <span className="text-green-600 text-xs sm:text-sm">+21.8%</span>
+              <span className="text-green-500 text-xs sm:text-sm">+21.8%</span>
             </div>
           </div>
         </div>
@@ -113,13 +113,13 @@ export default function Overview() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
 
         {/* Chart */}
-        <div className="md:col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
+        <div className="md:col-span-2 bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5">
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-1">
-            <h2 className="font-semibold text-neutral-800 text-sm sm:text-base">
+            <h2 className="font-semibold text-text-main text-sm sm:text-base">
               Team Collaboration Activity
             </h2>
-            <span className="text-xs sm:text-sm text-neutral-400">
+            <span className="text-xs sm:text-sm text-text-main/50">
               Last 7 days
             </span>
           </div>
@@ -153,22 +153,22 @@ export default function Overview() {
         </div>
 
         {/* Insights */}
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-3 sm:space-y-4">
+        <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-3 sm:space-y-4">
 
-          <div className="flex items-center gap-2 font-semibold text-neutral-800 text-sm sm:text-base">
+          <div className="flex items-center gap-2 font-semibold text-text-main text-sm sm:text-base">
             <Brain size={18} />
             Insights
           </div>
 
-          <div className="bg-violet-50 rounded-lg p-3 text-xs sm:text-sm text-neutral-700">
+          <div className="bg-primary/10 rounded-lg p-3 text-xs sm:text-sm text-text-main" style={{ color: 'var(--color-primary)' }}>
             Team collaboration increased by 21% this week.
           </div>
 
-          <div className="bg-blue-50 rounded-lg p-3 text-xs sm:text-sm text-neutral-700">
+          <div className="bg-blue-500/10 text-blue-500 rounded-lg p-3 text-xs sm:text-sm">
             AI-generated documents are growing rapidly.
           </div>
 
-          <div className="bg-emerald-50 rounded-lg p-3 text-xs sm:text-sm text-neutral-700">
+          <div className="bg-emerald-500/10 text-emerald-500 rounded-lg p-3 text-xs sm:text-sm">
             Most activity observed in shared workspaces.
           </div>
 
@@ -181,8 +181,8 @@ export default function Overview() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
 
-        <div className="md:col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
-          <h2 className="font-semibold mb-4 text-sm sm:text-base text-neutral-800">
+        <div className="md:col-span-2 bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5">
+          <h2 className="font-semibold mb-4 text-sm sm:text-base text-text-main">
             Recent Documents
           </h2>
 
@@ -190,31 +190,31 @@ export default function Overview() {
             {["Project Plan", "Meeting Notes", "AI SOP Document"].map((doc, i) => (
               <div key={i} className="py-3 flex justify-between items-center">
                 <div className="flex gap-3 items-center">
-                  <FileText size={16} className="text-violet-600" />
-                  <span className="text-sm text-neutral-700">{doc}</span>
+                  <FileText size={16} className="text-primary" />
+                  <span className="text-sm text-text-main">{doc}</span>
                 </div>
-                <span className="text-xs text-neutral-400">Today</span>
+                <span className="text-xs text-text-main/50">Today</span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
-          <div className="flex items-center gap-2 font-semibold text-neutral-800 text-sm sm:text-base">
+        <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-4">
+          <div className="flex items-center gap-2 font-semibold text-text-main text-sm sm:text-base">
             <Brain size={18} />
             AI Copilot
           </div>
 
-          <div className="bg-violet-50/50 p-3 rounded-lg text-xs sm:text-sm text-neutral-700">
+          <div className="bg-primary/5 p-3 rounded-lg text-xs sm:text-sm text-text-main/80" style={{ borderLeft: '3px solid var(--color-primary)' }}>
             Generate a new document using AI or templates.
           </div>
 
-          <div className="border border-neutral-200 rounded-lg flex px-3 py-2 focus-within:border-violet-500 transition">
+          <div className="border border-border rounded-lg flex px-3 py-2 transition focus-within:ring-1" style={{ '--tw-ring-color': 'var(--color-primary)' }}>
             <input
-              className="flex-1 outline-none text-sm bg-transparent"
+              className="flex-1 outline-none text-sm bg-transparent text-text-main"
               placeholder="Ask AI..."
             />
-            <Sparkles size={16} className="text-violet-600" />
+            <Sparkles size={16} style={{ color: 'var(--color-primary)' }} />
           </div>
         </div>
 
@@ -224,13 +224,13 @@ export default function Overview() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
 
-        <div className="md:col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
+        <div className="md:col-span-2 bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5">
 
           <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold text-neutral-800 text-sm sm:text-base">
+            <h2 className="font-semibold text-text-main text-sm sm:text-base">
               System Activity Insights
             </h2>
-            <span className="text-xs sm:text-sm text-neutral-400">Last 7 days</span>
+            <span className="text-xs sm:text-sm text-text-main/50">Last 7 days</span>
           </div>
 
           <div className="h-[220px] sm:h-[260px]">
@@ -276,17 +276,17 @@ export default function Overview() {
 
         </div>
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-3 sm:space-y-4">
-          <h3 className="font-semibold text-neutral-800 text-sm sm:text-base">
+        <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-3 sm:space-y-4">
+          <h3 className="font-semibold text-text-main text-sm sm:text-base">
             Detailed Activity
           </h3>
-          <div className="bg-indigo-50 rounded-lg p-3 text-xs sm:text-sm text-neutral-700">
+          <div className="bg-indigo-500/10 text-indigo-500 rounded-lg p-3 text-xs sm:text-sm">
             Peak logins reached 300 on Sunday.
           </div>
-          <div className="bg-emerald-50 rounded-lg p-3 text-xs sm:text-sm text-neutral-700">
+          <div className="bg-emerald-500/10 text-emerald-500 rounded-lg p-3 text-xs sm:text-sm">
             Task completion increased by 20%.
           </div>
-          <div className="bg-amber-50 rounded-lg p-3 text-xs sm:text-sm text-neutral-700">
+          <div className="bg-amber-500/10 text-amber-500 rounded-lg p-3 text-xs sm:text-sm">
             Error rate dropped significantly this week.
           </div>
         </div>

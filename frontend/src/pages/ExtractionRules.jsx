@@ -43,9 +43,9 @@ const miniData = [
 function MetricCard({ title, value, sub, variant }) {
 
   const gradientMap = {
-    violet: "from-violet-50/60 to-transparent",
-    blue: "from-blue-50/60 to-transparent",
-    emerald: "from-emerald-50/60 to-transparent"
+    violet: "from-violet-500/10 to-transparent",
+    blue: "from-blue-500/10 to-transparent",
+    emerald: "from-emerald-500/10 to-transparent"
   }
 
   const colorMap = {
@@ -55,13 +55,13 @@ function MetricCard({ title, value, sub, variant }) {
   }
 
   return (
-    <div className="relative bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-neutral-200 shadow-sm min-h-[120px]">
+    <div className="relative bg-surface p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-border shadow-sm overflow-hidden min-h-[120px]">
 
       <div className={`absolute inset-0 bg-gradient-to-br ${gradientMap[variant]} pointer-events-none`} />
 
       <div className="relative space-y-3">
 
-        <div className="flex justify-between items-center text-xs sm:text-sm text-neutral-500">
+        <div className="flex justify-between items-center text-xs sm:text-sm text-text-main/70">
           <span className="truncate">{title}</span>
           <span className="text-[10px] sm:text-xs">{sub}</span>
         </div>
@@ -69,10 +69,10 @@ function MetricCard({ title, value, sub, variant }) {
         <div className="flex items-end justify-between gap-3">
 
           <div>
-            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-900">
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-text-main">
               {value}
             </p>
-            <p className="text-xs text-neutral-500 mt-1">
+            <p className="text-xs text-text-main/70 mt-1">
               vs last week
             </p>
           </div>
@@ -120,11 +120,11 @@ export default function ActivityPage() {
   ]
 
   const activityColors = {
-    user: "bg-violet-50",
-    ai: "bg-blue-50",
-    team: "bg-emerald-50",
-    doc: "bg-neutral-100",
-    system: "bg-neutral-50"
+    user: "bg-primary/10",
+    ai: "bg-blue-500/10 text-blue-500",
+    team: "bg-emerald-500/10 text-emerald-500",
+    doc: "bg-surface",
+    system: "bg-background"
   }
 
   const filteredActivities =
@@ -142,15 +142,15 @@ export default function ActivityPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">
+          <h1 className="text-xl sm:text-2xl font-semibold text-text-main">
             Activity & Insights
           </h1>
-          <p className="text-xs text-neutral-500 mt-1">
+          <p className="text-xs text-text-main/70 mt-1">
             Track collaboration, AI usage, and team productivity
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs px-3 py-1 bg-green-50 text-green-600 rounded-full w-fit">
+        <div className="flex items-center gap-2 text-xs px-3 py-1 bg-green-500/10 text-green-500 text-green-500 rounded-full w-fit">
           ● Live Updates
         </div>
 
@@ -168,13 +168,13 @@ export default function ActivityPage() {
 
       {/* Chart */}
 
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
+      <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5">
 
         <div className="flex justify-between mb-4">
-          <h2 className="font-semibold text-neutral-800">
+          <h2 className="font-semibold text-text-main">
             Activity Trend
           </h2>
-          <span className="text-xs sm:text-sm text-neutral-400">
+          <span className="text-xs sm:text-sm text-text-main/50">
             Last 7 days
           </span>
         </div>
@@ -212,7 +212,7 @@ export default function ActivityPage() {
       {/* Tabs */}
 
       <div className="overflow-x-auto">
-        <div className="bg-white border border-neutral-200 rounded-xl p-2 flex gap-2 w-max shadow-sm">
+        <div className="bg-surface border border-border rounded-xl p-2 flex gap-2 w-max shadow-sm">
 
           {tabs.map((tab) => (
             <button
@@ -221,7 +221,7 @@ export default function ActivityPage() {
               className={`px-4 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap ${
                 activeTab === tab
                   ? "bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white"
-                  : "text-neutral-600 hover:bg-neutral-100"
+                  : "text-text-main/70 hover:bg-surface"
               }`}
             >
               {tab}
@@ -233,14 +233,14 @@ export default function ActivityPage() {
 
       {/* Feed */}
 
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
+      <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5">
 
         <div className="flex items-center gap-2 font-semibold mb-4">
           <Activity size={16} />
           Activity Feed
         </div>
 
-        <div className="space-y-3 text-sm text-neutral-600">
+        <div className="space-y-3 text-sm text-text-main/70">
 
           {filteredActivities.map((act, i) => (
             <div

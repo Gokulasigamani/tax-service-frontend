@@ -18,26 +18,26 @@ function MetricCard({
   children
 }) {
   const variants = {
-    violet: "from-violet-50/60 to-transparent",
-    blue: "from-blue-50/60 to-transparent",
-    emerald: "from-emerald-50/60 to-transparent"
+    violet: "from-violet-500/10 to-transparent",
+    blue: "from-blue-500/10 to-transparent",
+    emerald: "from-emerald-500/10 to-transparent"
   }
 
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl sm:rounded-2xl border border-neutral-200 shadow-sm p-4 sm:p-5 min-h-[110px] sm:min-h-[130px]">
+    <div className="relative overflow-hidden bg-surface rounded-xl sm:rounded-2xl border border-border shadow-sm p-4 sm:p-5 min-h-[110px] sm:min-h-[130px]">
 
       <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
 
       <div className="relative h-full flex flex-col justify-between">
 
-        <div className="flex justify-between text-xs sm:text-sm text-neutral-500 mb-2 sm:mb-4">
+        <div className="flex justify-between text-xs sm:text-sm text-text-main/70 mb-2 sm:mb-4">
           <span className="truncate">{title}</span>
           <span className="text-[10px] sm:text-xs">{footer}</span>
         </div>
 
         <div className="flex items-end justify-between">
 
-          <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-900 truncate">
+          <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-text-main truncate">
             {value}
           </p>
 
@@ -60,9 +60,9 @@ export default function Profile() {
 
       {/* Hero */}
 
-      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-neutral-200 bg-white shadow-sm p-5 sm:p-6">
+      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-border bg-surface shadow-sm p-5 sm:p-6">
 
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-50/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-transparent" />
 
         <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
 
@@ -73,21 +73,21 @@ export default function Profile() {
                 src="https://i.pravatar.cc/100"
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border"
               />
-              <button className="absolute bottom-0 right-0 p-1.5 bg-white rounded-full shadow">
+              <button className="absolute bottom-0 right-0 p-1.5 bg-surface rounded-full shadow">
                 <Camera size={12} />
               </button>
             </div>
 
             <div>
               <h1 className="text-lg sm:text-xl font-semibold">Gokul</h1>
-              <p className="text-xs sm:text-sm text-neutral-500">
+              <p className="text-xs sm:text-sm text-text-main/70">
                 AI Product Builder
               </p>
             </div>
 
           </div>
 
-          <button className="w-full sm:w-auto px-4 py-2 bg-violet-600 text-white rounded-lg text-sm">
+          <button className="w-full sm:w-auto px-4 py-2 bg-primary text-white rounded-lg text-sm">
             Edit Profile
           </button>
 
@@ -101,7 +101,7 @@ export default function Profile() {
 
         <MetricCard title="Documents Processed" value="1,284" footer="This month">
           {[6, 10, 14, 8, 16, 12, 18].map((h, i) => (
-            <div key={i} style={{ height: h }} className="w-[3px] sm:w-[4px] bg-violet-400 rounded" />
+            <div key={i} style={{ height: h }} className="w-[3px] sm:w-[4px] bg-primary/10 rounded" />
           ))}
         </MetricCard>
 
@@ -128,23 +128,23 @@ export default function Profile() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
 
-        <div className="lg:col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
+        <div className="lg:col-span-2 bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-4">
 
-          <div className="flex items-center gap-2 font-semibold text-neutral-800">
+          <div className="flex items-center gap-2 font-semibold text-text-main">
             <BarChart3 size={18} />
             Activity Overview
           </div>
 
-          <div className="h-48 sm:h-52 bg-neutral-100 rounded-lg flex items-center justify-center text-neutral-400 text-sm">
+          <div className="h-48 sm:h-52 bg-surface rounded-lg flex items-center justify-center text-text-main/50 text-sm">
             Activity Graph
           </div>
 
         </div>
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
+        <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-4">
 
-          <div className="flex items-center gap-2 font-semibold text-neutral-800">
-            <Sparkles size={16} className="text-violet-600" />
+          <div className="flex items-center gap-2 font-semibold text-text-main">
+            <Sparkles size={16} className="text-primary" />
             Insights
           </div>
 
@@ -153,7 +153,7 @@ export default function Profile() {
             "AI accuracy improved",
             "Storage usage growing steadily"
           ].map((item, i) => (
-            <div key={i} className="bg-neutral-50 p-3 rounded-lg text-sm">
+            <div key={i} className="bg-background p-3 rounded-lg text-sm">
               {item}
             </div>
           ))}
@@ -167,51 +167,51 @@ export default function Profile() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
 
         {/* Personal */}
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
+        <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-4">
 
           <div className="flex items-center gap-2 font-semibold">
             <User size={18} />
             Personal Info
           </div>
 
-          <input className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm" defaultValue="Gokul" />
-          <input className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm" defaultValue="gokul@email.com" />
+          <input className="w-full border border-border rounded-lg px-3 py-2 text-sm" defaultValue="Gokul" />
+          <input className="w-full border border-border rounded-lg px-3 py-2 text-sm" defaultValue="gokul@email.com" />
 
         </div>
 
         {/* Security */}
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
+        <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-4">
 
           <div className="flex items-center gap-2 font-semibold">
             <Shield size={18} />
             Security
           </div>
 
-          <div className="flex justify-between bg-neutral-50 p-3 rounded-lg text-sm">
+          <div className="flex justify-between bg-background p-3 rounded-lg text-sm">
             <span>Password</span>
-            <button className="text-violet-600">Change</button>
+            <button className="text-primary">Change</button>
           </div>
 
-          <div className="flex justify-between bg-neutral-50 p-3 rounded-lg text-sm">
+          <div className="flex justify-between bg-background p-3 rounded-lg text-sm">
             <span>2FA</span>
-            <span className="text-green-600">Enabled</span>
+            <span className="text-green-500">Enabled</span>
           </div>
 
         </div>
 
         {/* API */}
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
+        <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-4">
 
           <div className="flex items-center gap-2 font-semibold">
             <KeyRound size={18} />
             API Usage
           </div>
 
-          <div className="bg-neutral-50 p-3 rounded-lg text-sm">
+          <div className="bg-background p-3 rounded-lg text-sm">
             12,432 requests this month
           </div>
 
-          <div className="bg-neutral-50 p-3 rounded-lg text-sm">
+          <div className="bg-background p-3 rounded-lg text-sm">
             Rate limit: 1000/min
           </div>
 
@@ -221,14 +221,14 @@ export default function Profile() {
 
       {/* Timeline */}
 
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
+      <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-4">
 
         <div className="flex items-center gap-2 font-semibold">
           <Activity size={18} />
           Recent Activity
         </div>
 
-        <div className="space-y-3 text-sm text-neutral-600">
+        <div className="space-y-3 text-sm text-text-main/70">
 
           {[
             { text: "Uploaded 5 documents", time: "Today" },
@@ -238,7 +238,7 @@ export default function Profile() {
 
             <div key={i} className="flex justify-between">
               <span>{item.text}</span>
-              <span className="text-neutral-400 text-xs">{item.time}</span>
+              <span className="text-text-main/50 text-xs">{item.time}</span>
             </div>
 
           ))}

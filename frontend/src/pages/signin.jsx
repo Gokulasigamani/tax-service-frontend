@@ -31,7 +31,7 @@ export default function Signin() {
             Sign in to your workspace
           </h1>
 
-          <p className="text-gray-500 text-sm mb-8">
+          <p className="text-text-main/70 text-sm mb-8">
             Upload documents, define fields, and automatically extract
             structured data using intelligent rules.
           </p>
@@ -41,7 +41,7 @@ export default function Signin() {
           <form className="space-y-5">
 
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">
+              <label className="text-sm text-text-main/70 mb-1 block">
                 Email address
               </label>
 
@@ -53,7 +53,7 @@ export default function Signin() {
             </div>
 
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">
+              <label className="text-sm text-text-main/70 mb-1 block">
                 Password
               </label>
 
@@ -97,7 +97,7 @@ export default function Signin() {
 
           {/* Signup */}
 
-          <p className="text-sm text-center mt-8 text-gray-600">
+          <p className="text-sm text-center mt-8 text-text-main/70">
             Don’t have an account?{" "}
             <Link to="/signup" className="text-indigo-600 font-medium">
               Create account

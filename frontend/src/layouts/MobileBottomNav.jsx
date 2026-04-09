@@ -26,7 +26,7 @@ export default function MobileBottomNav({ setIsMobileMenuOpen }) {
               to={item.path}
               className={({ isActive }) =>
                 `flex flex-col items-center justify-center gap-1 flex-1 transition-all duration-300
-                ${isActive ? "text-violet-400 scale-110" : "text-gray-400 hover:text-gray-200"}`
+                ${isActive ? "text-primary scale-110" : "text-text-main/50 hover:text-gray-200"}`
               }
             >
               <Icon size={20} />
@@ -38,7 +38,7 @@ export default function MobileBottomNav({ setIsMobileMenuOpen }) {
         {/* More Button to open Sidebar */}
         <button
           onClick={() => setIsMobileMenuOpen(true)}
-          className="flex flex-col items-center justify-center gap-1 flex-1 text-gray-400 hover:text-gray-200 transition-all"
+          className="flex flex-col items-center justify-center gap-1 flex-1 text-text-main/50 hover:text-gray-200 transition-all"
         >
           <Menu size={20} />
           <span className="text-[10px] font-medium">More</span>

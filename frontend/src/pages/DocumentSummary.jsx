@@ -16,10 +16,10 @@ export default function EditorPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
         <div>
-          <h1 className="text-2xl font-semibold text-neutral-800">
+          <h1 className="text-2xl font-semibold text-text-main">
             Document Editor
           </h1>
-          <p className="text-xs text-neutral-500 mt-1">
+          <p className="text-xs text-text-main/70 mt-1">
             Create, edit, and enhance documents with AI
           </p>
         </div>
@@ -28,12 +28,12 @@ export default function EditorPage() {
         <div className="flex items-center gap-3">
 
           <div className="flex -space-x-2">
-            <div className="w-7 h-7 rounded-full bg-violet-400" />
+            <div className="w-7 h-7 rounded-full bg-primary/10" />
             <div className="w-7 h-7 rounded-full bg-blue-400" />
             <div className="w-7 h-7 rounded-full bg-emerald-400" />
           </div>
 
-          <span className="text-xs text-neutral-500">
+          <span className="text-xs text-text-main/70">
             3 active collaborators
           </span>
 
@@ -44,7 +44,7 @@ export default function EditorPage() {
       {/* Toolbar */}
 
       <div className="
-        bg-white border border-neutral-200
+        bg-surface border border-border
         rounded-xl p-3 shadow-sm
         flex flex-wrap items-center gap-2
       ">
@@ -55,8 +55,8 @@ export default function EditorPage() {
             key={tool}
             className="
               px-3 py-1.5 text-xs rounded-md
-              text-neutral-600
-              hover:bg-neutral-100 transition
+              text-text-main/70
+              hover:bg-surface transition
             "
           >
             {tool}
@@ -77,9 +77,9 @@ export default function EditorPage() {
 
           <button className="
             px-3 py-1.5 text-xs rounded-md
-            border border-neutral-200
-            text-neutral-700
-            hover:bg-neutral-50 transition
+            border border-border
+            text-text-main
+            hover:bg-background transition
           ">
             Share
           </button>
@@ -96,7 +96,7 @@ export default function EditorPage() {
 
         <div className="
           lg:col-span-2
-          bg-white rounded-xl border border-neutral-200
+          bg-surface rounded-xl border border-border
           shadow-sm p-5
         ">
 
@@ -106,7 +106,7 @@ export default function EditorPage() {
             className="
               w-full h-[300px] sm:h-[400px]
               outline-none resize-none
-              text-sm text-neutral-700 leading-relaxed
+              text-sm text-text-main leading-relaxed
             "
           />
 
@@ -115,12 +115,12 @@ export default function EditorPage() {
         {/* AI Panel */}
 
         <div className="
-          bg-white rounded-xl border border-neutral-200
+          bg-surface rounded-xl border border-border
           shadow-sm p-5 space-y-4
         ">
 
-          <div className="flex items-center gap-2 font-semibold text-neutral-800">
-            <Sparkles size={16} className="text-violet-600" />
+          <div className="flex items-center gap-2 font-semibold text-text-main">
+            <Sparkles size={16} className="text-primary" />
             AI Assistant
           </div>
 
@@ -130,21 +130,21 @@ export default function EditorPage() {
 
             <button className="
               w-full text-left text-sm p-3 rounded-lg
-              bg-violet-50 hover:bg-violet-100 transition
+              bg-primary/10 hover:bg-primary/10 transition
             ">
               Generate content
             </button>
 
             <button className="
               w-full text-left text-sm p-3 rounded-lg
-              bg-blue-50 hover:bg-blue-100 transition
+              bg-blue-500/10 text-blue-500 hover:bg-blue-100 transition
             ">
               Improve writing
             </button>
 
             <button className="
               w-full text-left text-sm p-3 rounded-lg
-              bg-emerald-50 hover:bg-emerald-100 transition
+              bg-emerald-500/10 text-emerald-500 hover:bg-emerald-100 transition
             ">
               Summarize document
             </button>
@@ -153,18 +153,18 @@ export default function EditorPage() {
 
           {/* Suggestions */}
 
-          <div className="pt-4 border-t border-neutral-200 space-y-2">
+          <div className="pt-4 border-t border-border space-y-2">
 
             <div className="flex items-center gap-2 font-semibold text-sm">
               <Wand2 size={14} />
               Suggestions
             </div>
 
-            <div className="text-xs text-neutral-600 bg-neutral-100 p-2 rounded">
+            <div className="text-xs text-text-main/70 bg-surface p-2 rounded">
               Consider adding a summary section at the end.
             </div>
 
-            <div className="text-xs text-neutral-600 bg-neutral-100 p-2 rounded">
+            <div className="text-xs text-text-main/70 bg-surface p-2 rounded">
               Improve clarity in the introduction paragraph.
             </div>
 

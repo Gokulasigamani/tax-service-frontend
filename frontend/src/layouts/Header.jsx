@@ -30,19 +30,19 @@ export default function Header({ setIsMobileMenuOpen }) {
       text: "Document processed successfully",
       time: "2 min ago",
       icon: <CheckCircle2 size={16} />,
-      style: "bg-green-50 text-green-600"
+      style: "bg-green-500/10 text-green-500"
     },
     {
       text: "Low confidence in extraction",
       time: "10 min ago",
       icon: <AlertCircle size={16} />,
-      style: "bg-amber-50 text-amber-600"
+      style: "bg-amber-500/10 text-amber-500"
     },
     {
       text: "New AI model update available",
       time: "1 hour ago",
       icon: <Info size={16} />,
-      style: "bg-violet-50 text-violet-600"
+      style: "bg-primary/10"
     }
   ]
 
@@ -51,8 +51,7 @@ export default function Header({ setIsMobileMenuOpen }) {
       h-16 flex items-center justify-between
       px-3 sm:px-4 md:px-6
       sticky top-0 z-40
-      backdrop-blur-md bg-white/70
-      border-b border-violet-100/50
+      backdrop-blur-md bg-surface/70
     ">
 
       {/* LEFT - SEARCH */}
@@ -60,16 +59,16 @@ export default function Header({ setIsMobileMenuOpen }) {
 
         <div className="
           flex items-center gap-2 w-full
-          border-b border-neutral-200
-          focus-within:border-violet-500 transition
+          bg-text-main/5 rounded-lg px-3 py-1.5
+          border border-transparent focus-within:border-primary/20 transition-all
         ">
-          <Search size={16} className="text-neutral-500 shrink-0" />
+          <Search size={16} className="text-text-main/50 shrink-0" />
           <input
             type="text"
             placeholder="Search..."
             className="
               w-full py-2 text-sm outline-none bg-transparent
-              placeholder:text-neutral-400
+              placeholder:text-text-main/50
             "
           />
         </div>
@@ -81,11 +80,10 @@ export default function Header({ setIsMobileMenuOpen }) {
 
         {/* Create */}
         <button className="
-          hidden sm:flex items-center gap-2 px-3 py-2
-          rounded-lg border border-violet-200
-          bg-white/60 text-sm font-medium text-violet-700
-          hover:bg-violet-50 transition
-        ">
+          hidden sm:flex items-center gap-2 px-4 py-2
+          rounded-lg bg-text-main/5 text-sm font-medium
+          hover:bg-primary/10 transition-colors
+        " style={{ color: 'var(--color-primary)' }}>
           <Wand2 size={14} />
           <span className="hidden md:inline">Create</span>
         </button>
@@ -95,9 +93,9 @@ export default function Header({ setIsMobileMenuOpen }) {
 
           <button
             onClick={() => setOpen(!open)}
-            className="p-2 rounded-lg hover:bg-neutral-100 transition relative"
+            className="p-2 rounded-lg hover:bg-surface transition relative"
           >
-            <Bell size={18} className="text-neutral-600" />
+            <Bell size={18} className="text-text-main/70" />
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
           </button>
 
@@ -111,18 +109,18 @@ export default function Header({ setIsMobileMenuOpen }) {
               mt-2
               w-[92%] sm:w-80
               max-w-sm
-              bg-white/90 backdrop-blur-xl
-              border border-violet-100
+              bg-surface/90 backdrop-blur-xl
+              border border-border
               rounded-xl shadow-xl
               p-3 z-50
             ">
 
               {/* Header */}
               <div className="flex items-center justify-between mb-2 px-1">
-                <p className="text-sm font-semibold text-neutral-800">
+                <p className="text-sm font-semibold text-text-main">
                   Notifications
                 </p>
-                <button className="text-xs text-violet-600">
+                <button className="text-xs text-primary">
                   Mark all read
                 </button>
               </div>
@@ -133,17 +131,17 @@ export default function Header({ setIsMobileMenuOpen }) {
                 {notifications.map((n, i) => (
                   <div
                     key={i}
-                    className="flex items-start gap-3 p-2 rounded-lg hover:bg-neutral-50 transition"
+                    className="flex items-start gap-3 p-2 rounded-lg hover:bg-text-main/5 transition"
                   >
-                    <div className={`p-2 rounded-lg ${n.style}`}>
+                    <div className={`p-2 rounded-lg ${n.style}`} style={n.style.includes('bg-primary/10') ? { color: 'var(--color-primary)' } : {}}>
                       {n.icon}
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm text-neutral-800 line-clamp-2">
+                      <p className="text-sm text-text-main line-clamp-2">
                         {n.text}
                       </p>
-                      <p className="text-xs text-neutral-400">
+                      <p className="text-xs text-text-main/50">
                         {n.time}
                       </p>
                     </div>
@@ -161,9 +159,9 @@ export default function Header({ setIsMobileMenuOpen }) {
         {/* Settings */}
         <button
           onClick={() => navigate("/app/settings")}
-          className="p-2 rounded-lg hover:bg-neutral-100 transition"
+          className="p-2 rounded-lg hover:bg-surface transition"
         >
-          <Settings size={18} className="text-neutral-600" />
+          <Settings size={18} className="text-text-main/70" />
         </button>
 
         {/* Profile */}
@@ -173,9 +171,9 @@ export default function Header({ setIsMobileMenuOpen }) {
           alt="profile"
           className="
             w-8 h-8 sm:w-9 sm:h-9
-            rounded-full border border-neutral-200
+            rounded-full border border-border
             cursor-pointer
-            hover:ring-2 hover:ring-violet-200 transition
+            hover:ring-2 hover:ring-primary/20 transition
           "
         />
 

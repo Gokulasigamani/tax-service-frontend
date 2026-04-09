@@ -11,24 +11,25 @@ export default function GreetingSection() {
         relative overflow-hidden
         rounded-2xl sm:rounded-3xl
         p-5 sm:p-6 lg:p-8
-        bg-gradient-to-br from-white via-violet-50/70 to-indigo-50/70
-        border border-neutral-200
-        shadow-[0_10px_40px_rgba(0,0,0,0.08)]
+        bg-surface
+        border border-border
+        shadow-sm
       "
     >
 
-      {/* 🌫️ Grain */}
+      {/* 🌫️ Grain Overlay */}
       <div
-        className="absolute inset-0 opacity-[0.05] pointer-events-none"
+        className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
-          backgroundImage:
-            "url('https://grainy-gradients.vercel.app/noise.svg')",
+          backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')",
+          mixBlendMode: 'overlay'
         }}
       />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom right, color-mix(in srgb, var(--color-primary) 12%, transparent), transparent)' }} />
 
       {/* ✨ Glow Effects */}
-      <div className="absolute -top-16 -right-16 w-56 h-56 bg-violet-300/30 blur-3xl rounded-full" />
-      <div className="absolute -bottom-16 -left-16 w-56 h-56 bg-indigo-300/30 blur-3xl rounded-full" />
+      <div className="absolute -top-16 -right-16 w-56 h-56 blur-3xl rounded-full" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }} />
+      <div className="absolute -bottom-16 -left-16 w-56 h-56 blur-3xl rounded-full" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }} />
 
       {/* 🧊 Glass Layer */}
       <div className="absolute inset-0 backdrop-blur-[3px]" />
@@ -39,22 +40,21 @@ export default function GreetingSection() {
         <div className="space-y-3">
 
           {/* Small Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full
-            bg-violet-100 text-violet-600 text-xs font-medium w-fit">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium w-fit" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 15%, transparent)', color: 'var(--color-primary)' }}>
             <Sparkles size={12} />
             Workspace Insights
           </div>
 
           {/* Heading */}
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-neutral-900 tracking-tight leading-snug">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-text-main tracking-tight leading-snug">
             Welcome back{" "}
-            <span className="text-violet-600">Gokul</span>
+            <span style={{ color: 'var(--color-primary)' }}>Gokul</span>
           </h1>
 
           {/* Description */}
-          <p className="text-sm sm:text-[15px] text-neutral-600 max-w-lg leading-relaxed">
+          <p className="text-sm sm:text-[15px] text-text-main/70 max-w-lg leading-relaxed">
             You’ve processed{" "}
-            <span className="text-neutral-900 font-semibold">
+            <span className="text-text-main font-semibold">
               1,294 documents
             </span>{" "}
             this week. Your AI extraction performance is improving steadily,
@@ -70,11 +70,10 @@ export default function GreetingSection() {
             className="
               flex items-center justify-center gap-2
               px-4 py-2.5 rounded-lg
-              bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23]
               text-white text-sm font-medium
-              shadow-sm
-              hover:opacity-90 transition
+              shadow-sm hover:opacity-90 transition
             "
+            style={{ backgroundColor: 'var(--color-primary)' }}
           >
             <Sparkles size={16} />
             Create Workflow
@@ -85,9 +84,9 @@ export default function GreetingSection() {
             className="
               flex items-center justify-center gap-2
               px-4 py-2.5 rounded-lg
-              bg-white text-neutral-700 text-sm
-              border border-neutral-200
-              hover:bg-neutral-50 transition
+              bg-surface text-text-main text-sm
+              border border-border
+              hover:bg-background transition
             "
           >
             View Analytics

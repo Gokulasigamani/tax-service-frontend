@@ -11,7 +11,7 @@ export function AppLayout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <div className="flex h-screen overflow-hidden bg-neutral-50">
+    <div className="flex h-screen overflow-hidden bg-background text-text-main transition-colors duration-300">
 
       <Sidebar
         collapsed={collapsed}

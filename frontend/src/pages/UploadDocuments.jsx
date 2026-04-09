@@ -20,18 +20,18 @@ function MetricCard({
   children
 }) {
   const variants = {
-    violet: "from-violet-50/60 to-transparent",
-    blue: "from-blue-50/60 to-transparent",
-    emerald: "from-emerald-50/60 to-transparent"
+    violet: "from-violet-500/10 to-transparent",
+    blue: "from-blue-500/10 to-transparent",
+    emerald: "from-emerald-500/10 to-transparent"
   }
 
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl sm:rounded-2xl border border-neutral-200 shadow-sm p-4 sm:p-5 min-h-[110px] sm:min-h-[130px]">
+    <div className="relative overflow-hidden bg-surface rounded-xl sm:rounded-2xl border border-border shadow-sm p-4 sm:p-5 min-h-[110px] sm:min-h-[130px]">
       <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
 
       <div className="relative h-full flex flex-col justify-between">
 
-        <div className="flex items-center justify-between text-xs sm:text-sm text-neutral-500 mb-2 sm:mb-4">
+        <div className="flex items-center justify-between text-xs sm:text-sm text-text-main/70 mb-2 sm:mb-4">
           <span className="truncate">{title}</span>
           <span className="text-[10px] sm:text-xs">{footer}</span>
         </div>
@@ -39,11 +39,11 @@ function MetricCard({
         <div className="flex items-end justify-between gap-2">
 
           <div className="min-w-0">
-            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-900 truncate">
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-text-main truncate">
               {value}
             </p>
 
-            <span className={`text-xs sm:text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
+            <span className={`text-xs sm:text-sm ${positive ? "text-green-500" : "text-red-500"}`}>
               {change}
             </span>
           </div>
@@ -102,10 +102,10 @@ export default function WorkspaceDocuments() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">
+          <h1 className="text-xl sm:text-2xl font-semibold text-text-main">
             Workspace
           </h1>
-          <p className="text-xs text-neutral-500 mt-1">
+          <p className="text-xs text-text-main/70 mt-1">
             Manage and collaborate on documents
           </p>
         </div>
@@ -123,7 +123,7 @@ export default function WorkspaceDocuments() {
 
         <MetricCard title="Total Documents" value={docs.length} change="+14%" footer="Workspace">
           {[6, 10, 14, 8, 16, 12, 18].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-violet-400 rounded-sm" />
+            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-primary/10 rounded-sm" />
           ))}
         </MetricCard>
 
@@ -145,8 +145,8 @@ export default function WorkspaceDocuments() {
       {/* Search */}
 
       <div className="w-full sm:w-72">
-        <div className="flex items-center gap-2 border border-neutral-200 rounded-lg px-3 py-2 bg-white">
-          <Search size={16} className="text-neutral-400" />
+        <div className="flex items-center gap-2 border border-border rounded-lg px-3 py-2 bg-surface">
+          <Search size={16} className="text-text-main/50" />
           <input
             placeholder="Search documents..."
             className="outline-none text-sm w-full"
@@ -159,7 +159,7 @@ export default function WorkspaceDocuments() {
       {/* Tabs */}
 
       <div className="overflow-x-auto">
-        <div className="bg-white border border-neutral-200 rounded-xl p-2 flex gap-2 w-max shadow-sm">
+        <div className="bg-surface border border-border rounded-xl p-2 flex gap-2 w-max shadow-sm">
 
           {tabs.map((tab) => (
             <button
@@ -169,7 +169,7 @@ export default function WorkspaceDocuments() {
                 ${
                   activeTab === tab
                     ? "bg-gradient-to-br from-[#1a1333] via-[#2a1f4a] to-[#120c23] text-white"
-                    : "text-neutral-600 hover:bg-neutral-100"
+                    : "text-text-main/70 hover:bg-surface"
                 }`}
             >
               {tab}
@@ -182,10 +182,10 @@ export default function WorkspaceDocuments() {
       {/* Upload */}
 
       <label
-        className="block cursor-pointer bg-white rounded-xl border border-neutral-200 p-6 text-center hover:border-violet-300 transition"
+        className="block cursor-pointer bg-surface rounded-xl border border-border p-6 text-center hover:border-primary/30 transition"
       >
-        <UploadCloud size={24} className="mx-auto text-violet-600 mb-2" />
-        <p className="text-sm text-neutral-700">
+        <UploadCloud size={24} className="mx-auto text-primary mb-2" />
+        <p className="text-sm text-text-main">
           Drag & drop files or click to upload
         </p>
 
@@ -199,10 +199,10 @@ export default function WorkspaceDocuments() {
 
       {/* Documents */}
 
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
+      <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5">
 
         {filteredDocs.length === 0 ? (
-          <div className="text-center py-10 text-neutral-500 text-sm">
+          <div className="text-center py-10 text-text-main/70 text-sm">
             No documents available
           </div>
         ) : (
@@ -216,21 +216,21 @@ export default function WorkspaceDocuments() {
                 {/* Left */}
                 <div className="flex items-center gap-3 min-w-0">
 
-                  <div className="p-2 bg-violet-100 rounded-lg shrink-0">
-                    <FileText size={16} className="text-violet-600" />
+                  <div className="p-2 bg-primary/10 rounded-lg shrink-0">
+                    <FileText size={16} className="text-primary" />
                   </div>
 
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-neutral-800 truncate">
+                    <p className="text-sm font-medium text-text-main truncate">
                       {doc.file.name}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 text-xs text-neutral-500 mt-1">
+                    <div className="flex flex-wrap gap-2 text-xs text-text-main/70 mt-1">
                       <span>{doc.edited}</span>
-                      <span className="px-2 py-0.5 bg-violet-100 text-violet-600 rounded-md">
+                      <span className="px-2 py-0.5 bg-primary/10 text-primary rounded-md">
                         {doc.tag}
                       </span>
-                      <span className="px-2 py-0.5 bg-blue-100 text-blue-600 rounded-md">
+                      <span className="px-2 py-0.5 bg-blue-100 text-blue-500 rounded-md">
                         {doc.status}
                       </span>
                     </div>
@@ -247,16 +247,16 @@ export default function WorkspaceDocuments() {
                       className={
                         doc.starred
                           ? "text-yellow-400 fill-yellow-400"
-                          : "text-neutral-400"
+                          : "text-text-main/50"
                       }
                     />
                   </button>
 
                   <button
                     onClick={() => setDocs(docs.filter((_, idx) => idx !== i))}
-                    className="p-2 hover:bg-neutral-100 rounded-md"
+                    className="p-2 hover:bg-surface rounded-md"
                   >
-                    <Trash2 size={16} className="text-neutral-500" />
+                    <Trash2 size={16} className="text-text-main/70" />
                   </button>
 
                 </div>

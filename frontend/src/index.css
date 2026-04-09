@@ -4,10 +4,48 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  input, textarea, select {
+    @apply bg-transparent text-text-main outline-none;
+  }
+}
+
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text: #171717;
+  --color-border: #e5e7eb;
+}
+
+:root[data-theme='orange-mechanic'] {
+  --color-bg: #1f2022;
+  --color-surface: #2b2d30;
+  --color-text: #f8fafc;
+  --color-border: #3b3d42;
+}
+
+:root[data-theme='purple-disco'] {
+  --color-bg: #141124;
+  --color-surface: #1e1b30;
+  --color-text: #f8fafc;
+  --color-border: #2d2a45;
+}
+
+:root[data-theme='blue-powder'] {
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-text: #f8fafc;
+  --color-border: #334155;
+}
+
 body {
   margin: 0;
   font-family: 'DM Sans', 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @keyframes routeFade {

@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { sidebarItems } from "../datas/sidebarConfig.js";
 import { PanelLeftClose, PanelLeftOpen, X } from "lucide-react";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function Sidebar({ collapsed, setCollapsed, isMobileMenuOpen, setIsMobileMenuOpen }) {
+  const { transparentSidebar } = useTheme();
   return (
     <>
       {/* Mobile Overlay */}
@@ -15,22 +17,21 @@ export default function Sidebar({ collapsed, setCollapsed, isMobileMenuOpen, set
 
       <aside
         className={`fixed inset-y-0 left-0 z-50 md:relative h-screen flex flex-col
-          bg-gradient-to-b from-[#0b0715] via-[#120c23] to-[#0a0713]
-          border-r border-white/5 text-gray-300
+          ${transparentSidebar ? 'bg-surface/60 backdrop-blur-xl' : 'bg-surface'}
+          border-r border-border text-text-main
           transition-all duration-300 ease-in-out
           ${isMobileMenuOpen ? "translate-x-0 w-64" : "-translate-x-full md:translate-x-0"}
           ${collapsed ? "md:w-20" : "md:w-64"}`}
       >
-        {/* Header */}
-        <div className="h-16 flex items-center px-4 border-b border-white/5 justify-between md:justify-start gap-2">
+        <div className="h-16 flex items-center px-4 border-b border-border justify-between md:justify-start gap-2">
           <div
             className={`flex flex-col justify-center overflow-hidden transition-all duration-300 ease-in-out
               ${collapsed && !isMobileMenuOpen ? "md:w-0 md:opacity-0" : "w-full opacity-100"}`}
           >
-            <p className="text-base font-semibold text-white leading-none whitespace-nowrap">
+            <p className="text-base font-semibold leading-none whitespace-nowrap" style={{ color: 'var(--color-primary)' }}>
               DocExtract
             </p>
-            <p className="text-[11px] text-gray-400 mt-1 whitespace-nowrap">
+            <p className="text-[11px] opacity-70 mt-1 whitespace-nowrap">
               Document Intelligence
             </p>
           </div>
@@ -39,7 +40,7 @@ export default function Sidebar({ collapsed, setCollapsed, isMobileMenuOpen, set
              {/* Close button for mobile */}
              <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 rounded-md hover:bg-white/10 md:hidden transition text-gray-400"
+              className="p-2 rounded-md hover:bg-surface/10 md:hidden transition text-text-main/50"
             >
               <X size={18} />
             </button>
@@ -47,7 +48,7 @@ export default function Sidebar({ collapsed, setCollapsed, isMobileMenuOpen, set
             {/* Collapse button for desktop */}
             <button
               onClick={() => setCollapsed(!collapsed)}
-              className="p-2 rounded-md hover:bg-white/10 hidden md:flex transition text-gray-400"
+              className="p-2 rounded-md hover:bg-surface/10 hidden md:flex transition text-text-main/50"
             >
               {collapsed ? (
                 <PanelLeftOpen size={18} />
@@ -70,54 +71,64 @@ export default function Sidebar({ collapsed, setCollapsed, isMobileMenuOpen, set
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) =>
                   `group relative flex items-center
-                  py-2.5 rounded-lg text-sm border
-                  transition-all duration-150
-                  ${collapsed && !isMobileMenuOpen ? "md:justify-center md:px-0" : "gap-3 px-3"}
+                  py-2.5 rounded-xl text-sm font-medium
+                  transition-all duration-300
+                  ${collapsed && !isMobileMenuOpen ? "md:justify-center md:px-0 mx-2" : "gap-3 px-3 mx-2"}
                   ${
                     isActive
-                      ? "bg-violet-600/30 text-white border-violet-500/50 shadow-[0_0_15px_rgba(139,92,246,0.2)]"
-                      : "border-transparent hover:bg-white/10 hover:text-white"
+                      ? "shadow-sm backdrop-blur-md" 
+                      : "opacity-60 hover:opacity-100 hover:bg-text-main/5 text-text-main"
                   }`
                 }
+                style={({ isActive }) => isActive ? { 
+                  background: 'linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 15%, transparent) 0%, color-mix(in srgb, var(--color-primary) 3%, transparent) 100%)',
+                  color: 'var(--color-primary)',
+                  border: '1px solid color-mix(in srgb, var(--color-primary) 20%, transparent)',
+                  boxShadow: 'inset 0 1px 1px color-mix(in srgb, var(--color-primary) 25%, transparent)'
+                } : { border: '1px solid transparent' }}
               >
-                <div className="flex-shrink-0 flex justify-center">
-                  <Icon size={18} strokeWidth={1.8} />
-                </div>
+                {({ isActive }) => (
+                  <>
+                    <div className="flex-shrink-0 flex justify-center z-10 transition-transform duration-300 group-active:scale-95 group-hover:scale-110">
+                      <Icon size={18} strokeWidth={isActive ? 2.2 : 1.8} />
+                    </div>
 
-                <span
-                  className={`whitespace-nowrap overflow-hidden transition-all duration-300 ease-in-out
-                    ${collapsed && !isMobileMenuOpen ? "md:w-0 md:opacity-0" : "w-auto opacity-100"}`}
-                >
-                  {item.label}
-                </span>
+                    <span
+                      className={`whitespace-nowrap overflow-hidden transition-all duration-300 ease-in-out z-10
+                        ${collapsed && !isMobileMenuOpen ? "md:w-0 md:opacity-0" : "w-auto opacity-100"}`}
+                    >
+                      {item.label}
+                    </span>
 
-                {/* Tooltip for collapsed desktop menu */}
-                <div
-                  className={`absolute left-full ml-3 px-3 py-1.5
-                    rounded-md text-xs whitespace-nowrap
-                    bg-[#1a1333] border border-white/10
-                    text-white shadow-lg
-                    opacity-0 translate-x-2
-                    group-hover:opacity-100 group-hover:translate-x-0
-                    transition-all duration-200
-                    pointer-events-none z-50
-                    ${collapsed ? "hidden md:block" : "hidden"}`}
-                >
-                  {item.label}
-                </div>
+                    {/* Tooltip for collapsed desktop menu */}
+                    <div
+                      className={`absolute left-full ml-3 px-3 py-1.5
+                        rounded-lg text-xs whitespace-nowrap font-medium
+                        bg-surface border border-border
+                        text-text-main shadow-xl
+                        opacity-0 translate-x-2
+                        group-hover:opacity-100 group-hover:translate-x-0
+                        transition-all duration-200
+                        pointer-events-none z-50
+                        ${collapsed ? "hidden md:block" : "hidden"}`}
+                    >
+                      {item.label}
+                    </div>
+                  </>
+                )}
               </NavLink>
             );
           })}
         </nav>
 
         {/* Bottom */}
-        <div className="h-14 flex items-center border-t border-white/5 px-4 mb-2">
+        <div className="h-14 flex items-center border-t border-border px-4 mb-2">
           <div className="flex items-center gap-3">
-             <div className="w-8 h-8 rounded-full bg-violet-500/10 flex items-center justify-center text-violet-400 border border-violet-500/20">
+             <div className="w-8 h-8 rounded-full flex items-center justify-center border" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)', borderColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }}>
                <span className="text-xs font-bold">?</span>
              </div>
              <span
-                className={`text-sm text-gray-400 whitespace-nowrap overflow-hidden transition-all duration-300 ease-in-out
+                className={`text-sm opacity-80 whitespace-nowrap overflow-hidden transition-all duration-300 ease-in-out
                   ${collapsed && !isMobileMenuOpen ? "md:w-0 md:opacity-0" : "w-auto opacity-100"}`}
               >
                 Help & Support

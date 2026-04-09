@@ -23,7 +23,7 @@ export default function Signup() {
             Create your account
           </h1>
 
-          <p className="text-gray-500 text-sm mb-8">
+          <p className="text-text-main/70 text-sm mb-8">
             Start extracting structured data from documents using
             intelligent rules, custom fields, and automated workflows.
           </p>
@@ -33,7 +33,7 @@ export default function Signup() {
           <form className="space-y-5">
 
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">
+              <label className="text-sm text-text-main/70 mb-1 block">
                 Full name
               </label>
 
@@ -45,7 +45,7 @@ export default function Signup() {
             </div>
 
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">
+              <label className="text-sm text-text-main/70 mb-1 block">
                 Email address
               </label>
 
@@ -57,7 +57,7 @@ export default function Signup() {
             </div>
 
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">
+              <label className="text-sm text-text-main/70 mb-1 block">
                 Password
               </label>
 
@@ -69,7 +69,7 @@ export default function Signup() {
             </div>
 
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">
+              <label className="text-sm text-text-main/70 mb-1 block">
                 Confirm password
               </label>
 
@@ -84,7 +84,7 @@ export default function Signup() {
 
               <input type="checkbox" className="mt-1" />
 
-              <span className="text-gray-600">
+              <span className="text-text-main/70">
                 I agree to the Terms of Service and Privacy Policy
               </span>
 
@@ -103,7 +103,7 @@ export default function Signup() {
 
           {/* SIGNIN LINK */}
 
-          <p className="text-sm text-center mt-8 text-gray-600">
+          <p className="text-sm text-center mt-8 text-text-main/70">
             Already have an account?{" "}
             <Link to="/signin" className="text-indigo-600 font-medium">
               Sign in

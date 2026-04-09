@@ -19,19 +19,19 @@ function MetricCard({
   children
 }) {
   const variants = {
-    violet: "from-violet-50/60 to-transparent",
-    blue: "from-blue-50/60 to-transparent",
-    emerald: "from-emerald-50/60 to-transparent"
+    violet: "from-violet-500/10 to-transparent",
+    blue: "from-blue-500/10 to-transparent",
+    emerald: "from-emerald-500/10 to-transparent"
   }
 
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl sm:rounded-2xl border border-neutral-200 shadow-sm p-4 sm:p-5 min-h-[110px] sm:min-h-[130px]">
+    <div className="relative overflow-hidden bg-surface rounded-xl sm:rounded-2xl border border-border shadow-sm p-4 sm:p-5 min-h-[110px] sm:min-h-[130px]">
 
       <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
 
       <div className="relative h-full flex flex-col justify-between">
 
-        <div className="flex items-center justify-between text-xs sm:text-sm text-neutral-500 mb-2 sm:mb-4">
+        <div className="flex items-center justify-between text-xs sm:text-sm text-text-main/70 mb-2 sm:mb-4">
           <span className="truncate">{title}</span>
           <span className="text-[10px] sm:text-xs">{footer}</span>
         </div>
@@ -39,11 +39,11 @@ function MetricCard({
         <div className="flex items-end justify-between gap-2">
 
           <div className="min-w-0">
-            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-900 truncate">
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-text-main truncate">
               {value}
             </p>
 
-            <span className={`text-xs sm:text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
+            <span className={`text-xs sm:text-sm ${positive ? "text-green-500" : "text-red-500"}`}>
               {change}
             </span>
           </div>
@@ -74,10 +74,10 @@ export default function Analytics() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">
+          <h1 className="text-xl sm:text-2xl font-semibold text-text-main">
             Analytics
           </h1>
-          <p className="text-xs text-neutral-500 mt-1">
+          <p className="text-xs text-text-main/70 mt-1">
             Track performance and AI insights
           </p>
         </div>
@@ -112,7 +112,7 @@ export default function Analytics() {
           footer={range}
         >
           {[6, 10, 14, 8, 16, 12, 18].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-violet-400 rounded-sm" />
+            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-primary/10 rounded-sm" />
           ))}
         </MetricCard>
 
@@ -154,14 +154,14 @@ export default function Analytics() {
 
         {/* Trend */}
 
-        <div className="lg:col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
+        <div className="lg:col-span-2 bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-4">
 
-          <div className="flex items-center gap-2 font-semibold text-neutral-800">
+          <div className="flex items-center gap-2 font-semibold text-text-main">
             <TrendingUp size={18} />
             Document Processing Trend
           </div>
 
-          <div className="h-48 sm:h-64 bg-neutral-100 rounded-lg flex items-center justify-center text-neutral-400 text-sm">
+          <div className="h-48 sm:h-64 bg-surface rounded-lg flex items-center justify-center text-text-main/50 text-sm">
             Line Chart
           </div>
 
@@ -169,9 +169,9 @@ export default function Analytics() {
 
         {/* Types */}
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
+        <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-4">
 
-          <div className="flex items-center gap-2 font-semibold text-neutral-800">
+          <div className="flex items-center gap-2 font-semibold text-text-main">
             <BarChart3 size={18} />
             Document Types
           </div>
@@ -187,14 +187,14 @@ export default function Analytics() {
 
               <div key={i}>
 
-                <div className="flex justify-between text-sm text-neutral-600 mb-1">
+                <div className="flex justify-between text-sm text-text-main/70 mb-1">
                   <span>{item.name}</span>
                   <span>{item.value}</span>
                 </div>
 
-                <div className="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                <div className="h-2 bg-surface rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-violet-500"
+                    className="h-full bg-primary"
                     style={{ width: item.value }}
                   />
                 </div>

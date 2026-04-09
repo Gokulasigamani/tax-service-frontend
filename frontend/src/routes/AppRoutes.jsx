@@ -24,9 +24,9 @@ import Notifications from "../pages/Notifications.jsx"
 
 function UnderConstruction({ title = "Page" }) {
   return (
-    <div className="p-6 bg-white rounded-xl border border-neutral-200 shadow-sm">
+    <div className="p-6 bg-surface rounded-xl border border-border shadow-sm">
       <h1 className="text-2xl font-semibold mb-2">{title}</h1>
-      <p className="text-neutral-600">This feature is under construction.</p>
+      <p className="text-text-main/70">This feature is under construction.</p>
     </div>
   )
 }

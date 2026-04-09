@@ -19,19 +19,19 @@ function MetricCard({
   children
 }) {
   const variants = {
-    violet: "from-violet-50/60 to-transparent",
-    blue: "from-blue-50/60 to-transparent",
-    emerald: "from-emerald-50/60 to-transparent"
+    violet: "from-violet-500/10 to-transparent",
+    blue: "from-blue-500/10 to-transparent",
+    emerald: "from-emerald-500/10 to-transparent"
   }
 
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl sm:rounded-2xl border border-neutral-200 shadow-sm p-4 sm:p-5 min-h-[110px]">
+    <div className="relative overflow-hidden bg-surface rounded-xl sm:rounded-2xl border border-border shadow-sm p-4 sm:p-5 min-h-[110px]">
 
       <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
 
       <div className="relative">
 
-        <div className="flex justify-between text-xs sm:text-sm text-neutral-500 mb-2 sm:mb-4">
+        <div className="flex justify-between text-xs sm:text-sm text-text-main/70 mb-2 sm:mb-4">
           <span className="truncate">{title}</span>
           <span className="text-[10px] sm:text-xs">{footer}</span>
         </div>
@@ -39,10 +39,10 @@ function MetricCard({
         <div className="flex items-end justify-between">
 
           <div>
-            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-900">
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-text-main">
               {value}
             </p>
-            <span className={`text-xs sm:text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
+            <span className={`text-xs sm:text-sm ${positive ? "text-green-500" : "text-red-500"}`}>
               {change}
             </span>
           </div>
@@ -86,7 +86,7 @@ export default function TeamPage() {
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-        <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">
+        <h1 className="text-xl sm:text-2xl font-semibold text-text-main">
           Team Members
         </h1>
 
@@ -103,7 +103,7 @@ export default function TeamPage() {
 
         <MetricCard title="Total Members" value="12" change="+2" footer="All users">
           {[6, 8, 10, 12, 14, 16, 18].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-violet-400 rounded-sm" />
+            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-primary/10 rounded-sm" />
           ))}
         </MetricCard>
 
@@ -126,8 +126,8 @@ export default function TeamPage() {
 
       <div className="flex flex-col sm:flex-row gap-3">
 
-        <div className="flex items-center gap-2 border border-neutral-200 rounded-lg px-3 py-2 w-full sm:w-64 bg-white">
-          <Search size={16} className="text-neutral-400" />
+        <div className="flex items-center gap-2 border border-border rounded-lg px-3 py-2 w-full sm:w-64 bg-surface">
+          <Search size={16} className="text-text-main/50" />
           <input
             placeholder="Search members..."
             className="outline-none text-sm w-full"
@@ -144,16 +144,16 @@ export default function TeamPage() {
 
       {/* Invite Section */}
 
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 flex flex-col sm:flex-row gap-3">
+      <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 flex flex-col sm:flex-row gap-3">
 
         <input
           placeholder="Enter email..."
-          className="flex-1 border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none"
+          className="flex-1 border border-border rounded-lg px-3 py-2 text-sm outline-none"
         />
 
         <Select value="Editor" onChange={() => {}} options={roles} />
 
-        <button className="w-full sm:w-auto px-4 py-2 bg-violet-600 text-white rounded-lg text-sm">
+        <button className="w-full sm:w-auto px-4 py-2 bg-primary text-white rounded-lg text-sm">
           Invite
         </button>
 
@@ -161,11 +161,11 @@ export default function TeamPage() {
 
       {/* Desktop Table */}
 
-      <div className="hidden sm:block bg-white rounded-xl border border-neutral-200 shadow-sm p-5 overflow-x-auto">
+      <div className="hidden sm:block bg-surface rounded-xl border border-border shadow-sm p-5 overflow-x-auto">
 
         <table className="w-full text-sm">
 
-          <thead className="text-neutral-500 border-b">
+          <thead className="text-text-main/70 border-b">
             <tr>
               <th className="text-left py-3">Name</th>
               <th>Role</th>
@@ -181,7 +181,7 @@ export default function TeamPage() {
               <tr key={i}>
 
                 <td className="py-3 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-violet-400 text-white flex items-center justify-center text-xs">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 text-white flex items-center justify-center text-xs">
                     {m.name[0]}
                   </div>
                   {m.name}
@@ -201,7 +201,7 @@ export default function TeamPage() {
 
                 <td>
                   <span className={`text-xs ${
-                    m.status === "Active" ? "text-green-600" : "text-orange-500"
+                    m.status === "Active" ? "text-green-500" : "text-orange-500"
                   }`}>
                     {m.status}
                   </span>
@@ -230,10 +230,10 @@ export default function TeamPage() {
 
         {filteredMembers.map((m, i) => (
 
-          <div key={i} className="bg-white border border-neutral-200 rounded-xl p-4 shadow-sm space-y-3">
+          <div key={i} className="bg-surface border border-border rounded-xl p-4 shadow-sm space-y-3">
 
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-violet-400 text-white flex items-center justify-center text-xs">
+              <div className="w-8 h-8 rounded-full bg-primary/10 text-white flex items-center justify-center text-xs">
                 {m.name[0]}
               </div>
               <span className="font-medium">{m.name}</span>
@@ -251,7 +251,7 @@ export default function TeamPage() {
 
             <div className="text-xs">
               Status:{" "}
-              <span className={m.status === "Active" ? "text-green-600" : "text-orange-500"}>
+              <span className={m.status === "Active" ? "text-green-500" : "text-orange-500"}>
                 {m.status}
               </span>
             </div>

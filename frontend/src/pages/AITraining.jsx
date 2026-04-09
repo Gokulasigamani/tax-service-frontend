@@ -21,19 +21,19 @@ function MetricCard({
   children
 }) {
   const variants = {
-    violet: "from-violet-50/60 to-transparent",
-    blue: "from-blue-50/60 to-transparent",
-    emerald: "from-emerald-50/60 to-transparent"
+    violet: "from-violet-500/10 to-transparent",
+    blue: "from-blue-500/10 to-transparent",
+    emerald: "from-emerald-500/10 to-transparent"
   }
 
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 min-h-[120px]">
+    <div className="relative overflow-hidden bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 min-h-[120px]">
 
       <div className={`absolute inset-0 bg-gradient-to-br ${variants[variant]} pointer-events-none`} />
 
       <div className="relative">
 
-        <div className="flex justify-between text-xs sm:text-sm text-neutral-500 mb-3 sm:mb-4">
+        <div className="flex justify-between text-xs sm:text-sm text-text-main/70 mb-3 sm:mb-4">
           <span className="truncate">{title}</span>
           <span className="text-[10px] sm:text-xs">{footer}</span>
         </div>
@@ -41,11 +41,11 @@ function MetricCard({
         <div className="flex items-end justify-between">
 
           <div>
-            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-900">
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-text-main">
               {value}
             </p>
 
-            <span className={`text-xs sm:text-sm ${positive ? "text-green-600" : "text-red-500"}`}>
+            <span className={`text-xs sm:text-sm ${positive ? "text-green-500" : "text-red-500"}`}>
               {change}
             </span>
           </div>
@@ -79,7 +79,7 @@ export default function AITraining() {
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-        <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">
+        <h1 className="text-xl sm:text-2xl font-semibold text-text-main">
           AI Training
         </h1>
 
@@ -100,7 +100,7 @@ export default function AITraining() {
 
       {/* Dataset Info */}
 
-      <div className="flex flex-wrap gap-4 text-xs text-neutral-500">
+      <div className="flex flex-wrap gap-4 text-xs text-text-main/70">
         <span>Dataset size: 12,842 docs</span>
         <span>Last trained: 2 hours ago</span>
         <span>Model version: v2.1</span>
@@ -112,7 +112,7 @@ export default function AITraining() {
 
         <MetricCard title="Model Accuracy" value="96.8%" change="+2.3%" footer="Last 7 days">
           {[6, 10, 14, 12, 16, 18, 20].map((h, i) => (
-            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-violet-400 rounded-sm" />
+            <div key={i} style={{ height: `${h}px` }} className="w-[3px] sm:w-[4px] bg-primary/10 rounded-sm" />
           ))}
         </MetricCard>
 
@@ -134,14 +134,14 @@ export default function AITraining() {
 
       {/* Training Progress */}
 
-      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
+      <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5">
 
         <div className="flex justify-between text-sm mb-2">
-          <span className="text-neutral-600">Training Progress</span>
-          <span className="text-neutral-800 font-medium">72%</span>
+          <span className="text-text-main/70">Training Progress</span>
+          <span className="text-text-main font-medium">72%</span>
         </div>
 
-        <div className="h-2 bg-neutral-100 rounded-full overflow-hidden">
+        <div className="h-2 bg-surface rounded-full overflow-hidden">
           <div className="h-full bg-gradient-to-r from-violet-500 to-blue-500 w-[72%]" />
         </div>
 
@@ -153,7 +153,7 @@ export default function AITraining() {
 
         {/* Feedback */}
 
-        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5 space-y-4">
+        <div className="bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5 space-y-4">
 
           <div className="flex items-center gap-2 font-semibold">
             <Brain size={18} />
@@ -161,19 +161,19 @@ export default function AITraining() {
           </div>
 
           {[1, 2, 3, 4].map((_, i) => (
-            <div key={i} className="p-3 border border-neutral-200 rounded-lg space-y-2">
+            <div key={i} className="p-3 border border-border rounded-lg space-y-2">
 
               <p className="text-sm font-medium">
                 Invoice #{i + 1001}
               </p>
 
-              <p className="text-xs text-neutral-500">
+              <p className="text-xs text-text-main/70">
                 Field mismatch detected
               </p>
 
               <div className="flex gap-3">
 
-                <button className="flex items-center gap-1 text-green-600 text-xs">
+                <button className="flex items-center gap-1 text-green-500 text-xs">
                   <CheckCircle2 size={14} />
                   Correct
                 </button>
@@ -192,14 +192,14 @@ export default function AITraining() {
 
         {/* Insights */}
 
-        <div className="lg:col-span-2 bg-white rounded-xl border border-neutral-200 shadow-sm p-4 sm:p-5">
+        <div className="lg:col-span-2 bg-surface rounded-xl border border-border shadow-sm p-4 sm:p-5">
 
           <div className="flex items-center gap-2 font-semibold mb-4">
             <BarChart3 size={18} />
             Training Insights
           </div>
 
-          <div className="h-52 sm:h-64 bg-neutral-100 rounded-lg flex items-center justify-center text-neutral-400 text-sm">
+          <div className="h-52 sm:h-64 bg-surface rounded-lg flex items-center justify-center text-text-main/50 text-sm">
             Accuracy Trend Chart
           </div>
 
